@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Kovvuru ManiDeepak — Site Reliability Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --accent: #16a34a;
+    --accent-light: #22c55e;
+    --accent-dim: rgba(22,163,74,0.12);
+    --accent-dim2: rgba(22,163,74,0.06);
+    --bg: #fafaf9;
+    --bg2: #f4f4f2;
+    --bg3: #eeeee9;
+    --text: #111210;
+    --text2: #4a4a45;
+    --text3: #8a8a82;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.13);
+    --card: #ffffff;
+    --nav-bg: rgba(250,250,249,0.82);
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.05);
+    --shadow-lg: 0 2px 8px rgba(0,0,0,0.06), 0 20px 60px rgba(0,0,0,0.08);
+    --radius: 14px;
+    --radius-sm: 8px;
+    --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  [data-theme="dark"] {
+    --bg: #0d0f0d;
+    --bg2: #141614;
+    --bg3: #1c1f1c;
+    --text: #f0f0ed;
+    --text2: #b0b0a8;
+    --text3: #686862;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --card: #161916;
+    --nav-bg: rgba(13,15,13,0.85);
+    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.25);
+    --shadow-lg: 0 2px 8px rgba(0,0,0,0.3), 0 20px 60px rgba(0,0,0,0.4);
+    --accent-dim: rgba(34,197,94,0.1);
+    --accent-dim2: rgba(34,197,94,0.04);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;font-size:16px}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;transition:background var(--transition),color var(--transition);overflow-x:hidden}
+  ::selection{background:var(--accent);color:#fff}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2rem;backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);background:var(--nav-bg);border-bottom:1px solid var(--border);transition:background var(--transition)}
+  .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:62px}
+  .nav-logo{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:-0.02em;color:var(--text);text-decoration:none}
+  .nav-logo span{color:var(--accent)}
+  .nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+  .nav-links a{font-size:0.875rem;font-weight:400;color:var(--text2);text-decoration:none;transition:color 0.2s;letter-spacing:0.01em}
+  .nav-links a:hover,.nav-links a.active{color:var(--accent)}
+  .nav-right{display:flex;align-items:center;gap:1rem}
+  .theme-btn{background:none;border:1px solid var(--border2);border-radius:50px;width:40px;height:40px;cursor:pointer;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-size:1rem}
+  .theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+  .nav-cta{background:var(--accent);color:#fff;font-size:0.8rem;font-weight:500;padding:8px 18px;border-radius:50px;text-decoration:none;transition:all 0.2s;letter-spacing:0.01em}
+  .nav-cta:hover{background:var(--accent-light);transform:translateY(-1px)}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--text2);border-radius:2px;transition:all 0.3s}
+  .mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;background:var(--card);border-bottom:1px solid var(--border);padding:1.5rem 2rem;z-index:99;flex-direction:column;gap:1.2rem}
+  .mobile-menu a{color:var(--text2);text-decoration:none;font-size:1rem;transition:color 0.2s}
+  .mobile-menu a:hover{color:var(--accent)}
+
+  section{padding:6rem 2rem}
+  .container{max-width:1100px;margin:0 auto}
+  .section-label{font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
+  .section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;line-height:1.15;letter-spacing:-0.03em;color:var(--text);margin-bottom:1rem}
+  .section-sub{font-size:1.05rem;color:var(--text2);max-width:560px;line-height:1.7}
+
+  #hero{padding-top:10rem;padding-bottom:7rem;position:relative;overflow:hidden}
+  #hero::before{content:'';position:absolute;top:-120px;right:-180px;width:600px;height:600px;background:radial-gradient(circle,rgba(22,163,74,0.08) 0%,transparent 70%);pointer-events:none}
+  #hero::after{content:'';position:absolute;bottom:-80px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(22,163,74,0.05) 0%,transparent 70%);pointer-events:none}
+  .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-dim);border:1px solid rgba(22,163,74,0.2);color:var(--accent);font-size:0.78rem;font-weight:500;padding:6px 14px;border-radius:50px;margin-bottom:1.5rem;letter-spacing:0.02em}
+  .hero-badge::before{content:'';width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse-dot 2s ease-in-out infinite}
+  @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.85)}}
+  h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;line-height:1.05;letter-spacing:-0.04em;color:var(--text);margin-bottom:1.4rem}
+  h1 .line2{display:block;color:var(--accent)}
+  .hero-desc{font-size:1.1rem;color:var(--text2);max-width:520px;line-height:1.75;margin-bottom:2.2rem;font-weight:300}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+  .btn-primary{background:var(--accent);color:#fff;padding:13px 28px;border-radius:50px;text-decoration:none;font-size:0.9rem;font-weight:500;transition:all 0.2s;letter-spacing:0.01em;display:inline-flex;align-items:center;gap:8px}
+  .btn-primary:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(22,163,74,0.3)}
+  .btn-outline{border:1px solid var(--border2);color:var(--text2);padding:13px 28px;border-radius:50px;text-decoration:none;font-size:0.9rem;font-weight:400;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .hero-socials{display:flex;gap:1rem;margin-top:2rem}
+  .social-link{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--border2);color:var(--text3);text-decoration:none;transition:all 0.2s;font-size:1rem}
+  .social-link:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .hero-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow-lg);min-width:220px;text-align:center;flex-shrink:0}
+  .avatar-ring{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#15803d);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;letter-spacing:-0.02em}
+  .hero-card-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:0.3rem;letter-spacing:-0.01em}
+  .hero-card-role{font-size:0.78rem;color:var(--text3);margin-bottom:1.2rem}
+  .hero-stats{display:flex;flex-direction:column;gap:0.6rem;margin-top:1rem}
+  .hero-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg2);border-radius:var(--radius-sm);font-size:0.78rem}
+  .hero-stat-label{color:var(--text3)}
+  .hero-stat-val{color:var(--accent);font-weight:600;font-size:0.82rem}
+
+  #about{background:var(--bg2)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3.5rem}
+  .about-text p{color:var(--text2);font-size:1.05rem;line-height:1.8;margin-bottom:1rem}
+  .about-location{display:flex;align-items:center;gap:8px;color:var(--text3);font-size:0.875rem;margin-top:1.4rem}
+  .about-location svg{color:var(--accent)}
+  .skills-group{margin-bottom:1.8rem}
+  .skills-group-title{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:0.8rem}
+  .skills-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+  .skill-tag{background:var(--accent-dim);color:var(--accent);font-size:0.78rem;font-weight:500;padding:5px 12px;border-radius:50px;letter-spacing:0.01em;border:1px solid rgba(22,163,74,0.15);transition:all 0.2s;cursor:default}
+  .skill-tag:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
+  .skill-tag.neutral{background:var(--bg3);color:var(--text2);border-color:var(--border);font-weight:400}
+  .skill-tag.neutral:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+
+  #experience{background:var(--bg)}
+  .timeline{margin-top:3.5rem;position:relative}
+  .timeline::before{content:'';position:absolute;left:24px;top:8px;bottom:8px;width:1px;background:var(--border2)}
+  .tl-item{display:grid;grid-template-columns:50px 1fr;gap:0;margin-bottom:3rem;position:relative}
+  .tl-dot{width:50px;display:flex;justify-content:center;padding-top:4px;flex-shrink:0}
+  .tl-dot-inner{width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--accent);flex-shrink:0;margin-top:5px}
+  .tl-content{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem 1.8rem;box-shadow:var(--shadow);transition:transform 0.3s,box-shadow 0.3s}
+  .tl-content:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .tl-company{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text);letter-spacing:-0.01em}
+  .tl-role{font-size:0.875rem;color:var(--accent);font-weight:500;margin:4px 0 3px}
+  .tl-meta{font-size:0.78rem;color:var(--text3);display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:0.8rem}
+  .tl-badge{background:var(--accent-dim);color:var(--accent);font-size:0.7rem;font-weight:600;padding:3px 10px;border-radius:50px;letter-spacing:0.04em}
+  .tl-achievements{display:flex;flex-direction:column;gap:0.5rem}
+  .tl-ach{display:flex;align-items:flex-start;gap:10px;font-size:0.875rem;color:var(--text2);line-height:1.6}
+  .tl-ach::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px}
+
+  #projects{background:var(--bg2)}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;margin-top:3.5rem}
+  .project-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;box-shadow:var(--shadow);transition:all 0.3s;position:relative;overflow:hidden}
+  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-light));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+  .project-card:hover::before{transform:scaleX(1)}
+  .project-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--border2)}
+  .project-icon{width:44px;height:44px;background:var(--accent-dim);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.3rem}
+  .project-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:0.5rem;letter-spacing:-0.01em}
+  .project-desc{font-size:0.875rem;color:var(--text2);line-height:1.65;margin-bottom:1rem}
+  .project-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+  .project-tag{background:var(--bg2);color:var(--text3);font-size:0.7rem;padding:3px 9px;border-radius:50px;border:1px solid var(--border);font-weight:400}
+  [data-theme="dark"] .project-tag{background:var(--bg3)}
+
+  #education{background:var(--bg)}
+  .edu-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.8rem 2rem;box-shadow:var(--shadow);max-width:700px;margin-top:3rem;display:flex;gap:1.5rem;align-items:flex-start;transition:all 0.3s}
+  .edu-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .edu-icon{width:52px;height:52px;background:var(--accent-dim);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.5rem}
+  .edu-degree{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text);margin-bottom:0.3rem;letter-spacing:-0.01em}
+  .edu-college{font-size:0.875rem;color:var(--text2);margin-bottom:0.5rem}
+  .edu-meta{display:flex;gap:1rem;flex-wrap:wrap}
+  .edu-chip{background:var(--bg2);color:var(--text3);font-size:0.75rem;padding:4px 10px;border-radius:50px;border:1px solid var(--border)}
+
+  #contact{background:var(--bg2)}
+  .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3.5rem}
+  .contact-links{display:flex;flex-direction:column;gap:1rem;margin-top:1rem}
+  .contact-link{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text);transition:all 0.25s;box-shadow:var(--shadow)}
+  .contact-link:hover{border-color:var(--accent);transform:translateX(4px);box-shadow:var(--shadow-lg)}
+  .contact-link-icon{width:40px;height:40px;background:var(--accent-dim);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;transition:background 0.2s;color:var(--accent)}
+  .contact-link:hover .contact-link-icon{background:var(--accent);color:#fff}
+  .contact-link-text strong{display:block;font-size:0.875rem;font-weight:500;color:var(--text);margin-bottom:1px}
+  .contact-link-text span{font-size:0.78rem;color:var(--text3)}
+  .contact-cta-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow)}
+  .contact-cta-box h3{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:0.7rem;letter-spacing:-0.02em;color:var(--text)}
+  .contact-cta-box p{color:var(--text2);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.7}
+
+  footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 2rem}
+  .footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  .footer-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);letter-spacing:-0.01em}
+  .footer-copy{font-size:0.78rem;color:var(--text3)}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s cubic-bezier(0.4,0,0.2,1),transform 0.7s cubic-bezier(0.4,0,0.2,1)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-delay-1{transition-delay:0.1s}
+  .reveal-delay-2{transition-delay:0.2s}
+  .reveal-delay-3{transition-delay:0.3s}
+  .reveal-delay-4{transition-delay:0.4s}
+
+  @media(max-width:900px){
+    .hero-inner{grid-template-columns:1fr;gap:2.5rem}
+    .hero-card{display:flex;gap:1.5rem;text-align:left;align-items:center}
+    .avatar-ring{margin:0;flex-shrink:0}
+    .hero-stats{flex-direction:row;flex-wrap:wrap}
+    .about-grid{grid-template-columns:1fr}
+    .contact-inner{grid-template-columns:1fr}
+    .timeline::before{left:20px}
+    .tl-dot{width:42px}
+  }
+  @media(max-width:680px){
+    nav{padding:0 1.25rem}
+    section{padding:4.5rem 1.25rem}
+    .nav-links,.nav-cta{display:none}
+    .hamburger{display:flex}
+    .mobile-menu.open{display:flex}
+    #hero{padding-top:8rem;padding-bottom:5rem}
+    .footer-inner{flex-direction:column;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">MK<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="mailto:Deepakmani339@gmail.com" class="nav-cta">Hire Me</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#education" onclick="closeMobile()">Education</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge reveal">Available for opportunities</div>
+      <h1 class="reveal reveal-delay-1">Kovvuru<br><span class="line2">ManiDeepak</span></h1>
+      <p class="hero-desc reveal reveal-delay-2">Site Reliability Engineer focused on cloud infrastructure security, cost-efficiency, and reliability through automation and monitoring improvements at scale.</p>
+      <div class="hero-actions reveal reveal-delay-3">
+        <a href="#experience" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          View Experience
+        </a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-socials reveal reveal-delay-4">
+        <a href="https://www.linkedin.com/in/manideepak-kovvuru/" target="_blank" class="social-link" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://github.com/deepakmani339-lgtm" target="_blank" class="social-link" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+        <a href="mailto:Deepakmani339@gmail.com" class="social-link" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-card reveal reveal-delay-2">
+      <div class="avatar-ring">MD</div>
+      <div class="hero-card-name">ManiDeepak Kovvuru</div>
+      <div class="hero-card-role">Site Reliability Engineer</div>
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="hero-stat-label">Experience</span><span class="hero-stat-val">3+ Years</span></div>
+        <div class="hero-stat"><span class="hero-stat-label">Uptime</span><span class="hero-stat-val">99.9%+</span></div>
+        <div class="hero-stat"><span class="hero-stat-label">Location</span><span class="hero-stat-val">Hyderabad</span></div>
+        <div class="hero-stat"><span class="hero-stat-label">Focus</span><span class="hero-stat-val">SRE / Cloud</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label reveal">About</div>
+    <h2 class="section-title reveal">Building reliable systems<br>at scale</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>As a Site Reliability Operations Engineer at Zeta, I focus on optimising cloud infrastructure security, cost-efficiency, and reliability through automation and monitoring improvements.</p>
+        <p>I bring strong operational ownership to every system I touch — whether that's leading incident command during high-severity outages, engineering SLO-aligned services, or building automation that reduces manual toil.</p>
+        <p>With a continuous improvement mindset and a bias toward automation, I thrive in fast-paced, cloud-native environments where reliability and performance matter.</p>
+        <div class="about-location">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Hyderabad, India
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="skills-group">
+          <div class="skills-group-title">Cloud &amp; Infrastructure</div>
+          <div class="skills-tags">
+            <span class="skill-tag">Kubernetes</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">AWS / GCP</span>
+            <span class="skill-tag">CI/CD Pipelines</span>
+            <span class="skill-tag">Linux</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <div class="skills-group-title">Observability &amp; Monitoring</div>
+          <div class="skills-tags">
+            <span class="skill-tag">Grafana</span>
+            <span class="skill-tag">Prometheus</span>
+            <span class="skill-tag">Kibana</span>
+            <span class="skill-tag">SLOs / SLAs / SLIs</span>
+            <span class="skill-tag">Alerting</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <div class="skills-group-title">Operations &amp; Reliability</div>
+          <div class="skills-tags">
+            <span class="skill-tag neutral">Incident Command (L1)</span>
+            <span class="skill-tag neutral">RCA</span>
+            <span class="skill-tag neutral">Runbooks</span>
+            <span class="skill-tag neutral">On-call</span>
+            <span class="skill-tag neutral">Automation</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <div class="skills-group-title">Networking &amp; Tooling</div>
+          <div class="skills-tags">
+            <span class="skill-tag neutral">DNS / WAF / LB</span>
+            <span class="skill-tag neutral">kubectl</span>
+            <span class="skill-tag neutral">Bash Scripting</span>
+            <span class="skill-tag neutral">curl / netstat</span>
+            <span class="skill-tag neutral">SDLC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label reveal">Experience</div>
+    <h2 class="section-title reveal">Where I've worked</h2>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-content">
+          <div class="tl-company">Zeta Pvt. Ltd</div>
+          <div class="tl-role">Site Reliability Operational Engineer II</div>
+          <div class="tl-meta"><span>Hyderabad</span><span>·</span><span>Oct 2022 – Present</span><span class="tl-badge">Current</span></div>
+          <div class="tl-achievements">
+            <div class="tl-ach">Maintained 99.9%+ service uptime by engineering systems to strictly adhere to defined SLOs and SLIs across mission-critical cloud services.</div>
+            <div class="tl-ach">Acted as Incident Commander (L1) during high-severity production incidents — leading triage, mitigation, communication, and escalation to L2/L3 teams.</div>
+            <div class="tl-ach">Investigated and resolved Kubernetes issues including pod crashes, deployment failures, resource bottlenecks, and service disruptions using kubectl and monitoring tools.</div>
+            <div class="tl-ach">Designed and maintained CI/CD pipelines enabling safe, repeatable, and automated deployments with minimal downtime.</div>
+            <div class="tl-ach">Automated repetitive operational tasks significantly reducing manual effort, error rates, and incident response times.</div>
+            <div class="tl-ach">Proactively monitored system health using Grafana and Prometheus — identifying and resolving issues before customer impact.</div>
+            <div class="tl-ach">Performed comprehensive RCA for production incidents and implemented permanent corrective actions to prevent recurrence.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item reveal reveal-delay-1">
+        <div class="tl-dot"><div class="tl-dot-inner" style="background:var(--text3);box-shadow:0 0 0 2px var(--text3)"></div></div>
+        <div class="tl-content">
+          <div class="tl-company">Wipro Pvt. Ltd</div>
+          <div class="tl-role">Application Support Engineer</div>
+          <div class="tl-meta"><span>Hyderabad</span><span>·</span><span>Feb 2022 – Sep 2022</span></div>
+          <div class="tl-achievements">
+            <div class="tl-ach">Analyzed system logs in Grafana and Kibana to triage defects by severity, risk, and frequency — acting as the primary contact for L2 data requests from L1 support.</div>
+            <div class="tl-ach">Monitored performance metrics including CPU utilization, memory usage, and disk space; escalated and resolved complex issues collaboratively with engineering.</div>
+            <div class="tl-ach">Documented actionable bugs for engineering resolution and implemented lean principles to enhance workflow efficiency and reduce operational waste.</div>
+            <div class="tl-ach">Collaborated with development and QA teams to manage and execute code migrations across environments, ensuring smooth and stable releases.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label reveal">Projects</div>
+    <h2 class="section-title reveal">SRE initiatives &amp;<br>technical work</h2>
+    <p class="section-sub reveal reveal-delay-1">Key engineering projects and operational improvements from production environments.</p>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-icon">🔍</div>
+        <div class="project-name">Observability Stack Improvement</div>
+        <div class="project-desc">Enhanced monitoring coverage using Grafana and Prometheus dashboards. Improved alert quality and reduced MTTD by identifying gaps in runbooks and alert configurations.</div>
+        <div class="project-tags"><span class="project-tag">Grafana</span><span class="project-tag">Prometheus</span><span class="project-tag">Alerting</span><span class="project-tag">SLO/SLI</span></div>
+      </div>
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-icon">⚙️</div>
+        <div class="project-name">CI/CD Pipeline Design &amp; Maintenance</div>
+        <div class="project-desc">Designed and maintained CI/CD pipelines enabling safe, repeatable automated deployments. Supported staging and demo environments ensuring high availability during customer-facing events.</div>
+        <div class="project-tags"><span class="project-tag">CI/CD</span><span class="project-tag">Automation</span><span class="project-tag">Deployment</span><span class="project-tag">DevOps</span></div>
+      </div>
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-icon">☸️</div>
+        <div class="project-name">Kubernetes Operations &amp; Reliability</div>
+        <div class="project-desc">Resolved complex Kubernetes issues including pod failures, volume errors, service disruptions, and resource bottlenecks. Standardised kubectl-based diagnostics and incident workflows.</div>
+        <div class="project-tags"><span class="project-tag">Kubernetes</span><span class="project-tag">kubectl</span><span class="project-tag">Containers</span><span class="project-tag">Docker</span></div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-icon">🚨</div>
+        <div class="project-name">Incident Management Framework</div>
+        <div class="project-desc">Led high-severity incident response as Incident Commander (L1). Improved runbooks, defined escalation paths, and built post-incident RCA documentation reducing recurrence rates.</div>
+        <div class="project-tags"><span class="project-tag">Incident Mgmt</span><span class="project-tag">RCA</span><span class="project-tag">Runbooks</span><span class="project-tag">On-call</span></div>
+      </div>
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-icon">🤖</div>
+        <div class="project-name">Operational Automation</div>
+        <div class="project-desc">Automated repetitive operational tasks using scripting to reduce manual effort, error rates, and incident response time. Identified automation opportunities via incident post-mortems.</div>
+        <div class="project-tags"><span class="project-tag">Bash</span><span class="project-tag">Scripting</span><span class="project-tag">Automation</span><span class="project-tag">Linux</span></div>
+      </div>
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-icon">🌐</div>
+        <div class="project-name">Network Diagnostics &amp; Troubleshooting</div>
+        <div class="project-desc">Diagnosed and resolved complex networking issues involving DNS, firewalls, WAF, proxies, and load balancers using tools like ping, curl, netstat, and traceroute.</div>
+        <div class="project-tags"><span class="project-tag">Networking</span><span class="project-tag">DNS</span><span class="project-tag">WAF</span><span class="project-tag">Load Balancers</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-label reveal">Education</div>
+    <h2 class="section-title reveal">Academic background</h2>
+    <div class="edu-card reveal reveal-delay-1">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-degree">Bachelor of Technology — Electrical &amp; Electronics Engineering</div>
+        <div class="edu-college">B.Tech · EEE</div>
+        <div class="edu-meta">
+          <span class="edu-chip">Jul 2016 – Jun 2020</span>
+          <span class="edu-chip">India</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label reveal">Contact</div>
+    <h2 class="section-title reveal">Let's work together</h2>
+    <div class="contact-inner">
+      <div class="reveal">
+        <p style="color:var(--text2);font-size:1rem;line-height:1.8;margin-bottom:1rem">I'm open to SRE, DevOps, and cloud infrastructure roles. Feel free to reach out — I'm always happy to connect!</p>
+        <div class="contact-links">
+          <a href="mailto:Deepakmani339@gmail.com" class="contact-link">
+            <div class="contact-link-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-link-text"><strong>Email</strong><span>Deepakmani339@gmail.com</span></div>
+          </a>
+          <a href="https://www.linkedin.com/in/manideepak-kovvuru/" target="_blank" class="contact-link">
+            <div class="contact-link-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div class="contact-link-text"><strong>LinkedIn</strong><span>manideepak-kovvuru</span></div>
+          </a>
+          <a href="https://github.com/deepakmani339-lgtm" target="_blank" class="contact-link">
+            <div class="contact-link-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </div>
+            <div class="contact-link-text"><strong>GitHub</strong><span>deepakmani339-lgtm</span></div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-cta-box reveal reveal-delay-1">
+        <h3>Open to new roles</h3>
+        <p>Looking for SRE, Platform Engineering, or DevOps opportunities where I can drive reliability, automation, and cloud-native excellence.</p>
+        <a href="mailto:Deepakmani339@gmail.com" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send a message
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-name">Kovvuru ManiDeepak</span>
+    <span class="footer-copy">© 2025 · Site Reliability Engineer · Hyderabad, India</span>
+  </div>
+</footer>
+
+<script>
+const html = document.documentElement;
+const themeBtn = document.getElementById('themeToggle');
+const sun = document.getElementById('sunIcon');
+const moon = document.getElementById('moonIcon');
+let dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+function applyTheme(){html.setAttribute('data-theme',dark?'dark':'');sun.style.display=dark?'block':'none';moon.style.display=dark?'none':'block';}
+applyTheme();
+themeBtn.addEventListener('click',()=>{dark=!dark;applyTheme();});
+
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+hamburger.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
+function closeMobile(){mobileMenu.classList.remove('open');}
+
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+reveals.forEach(r=>obs.observe(r));
+
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.id;});
+  navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+current);});
+},{passive:true});
+</script>
+</body>
+</html>
