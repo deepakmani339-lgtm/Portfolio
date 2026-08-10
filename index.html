@@ -1,515 +1,538 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kovvuru ManiDeepak — Site Reliability Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --accent: #16a34a;
-    --accent-light: #22c55e;
-    --accent-dim: rgba(22,163,74,0.12);
-    --accent-dim2: rgba(22,163,74,0.06);
-    --bg: #fafaf9;
-    --bg2: #f4f4f2;
-    --bg3: #eeeee9;
-    --text: #111210;
-    --text2: #4a4a45;
-    --text3: #8a8a82;
-    --border: rgba(0,0,0,0.08);
-    --border2: rgba(0,0,0,0.13);
-    --card: #ffffff;
-    --nav-bg: rgba(250,250,249,0.82);
-    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.05);
-    --shadow-lg: 0 2px 8px rgba(0,0,0,0.06), 0 20px 60px rgba(0,0,0,0.08);
-    --radius: 14px;
-    --radius-sm: 8px;
-    --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+  :root{
+    --bg:#090d16;
+    --bg-soft:#0d1220;
+    --panel:#111827;
+    --panel-2:#0f1626;
+    --border:#1e293b;
+    --border-soft:#182033;
+    --text:#e6e9f0;
+    --text-dim:#8b93a7;
+    --text-faint:#586178;
+    --green:#34d399;
+    --green-dim:#0f2e24;
+    --amber:#fbbf24;
+    --amber-dim:#332608;
+    --red:#f87171;
+    --red-dim:#2e1414;
+    --cyan:#38bdf8;
+    --cyan-dim:#0c2436;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --sans:'Inter', -apple-system, sans-serif;
   }
-  [data-theme="dark"] {
-    --bg: #0d0f0d;
-    --bg2: #141614;
-    --bg3: #1c1f1c;
-    --text: #f0f0ed;
-    --text2: #b0b0a8;
-    --text3: #686862;
-    --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.12);
-    --card: #161916;
-    --nav-bg: rgba(13,15,13,0.85);
-    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.25);
-    --shadow-lg: 0 2px 8px rgba(0,0,0,0.3), 0 20px 60px rgba(0,0,0,0.4);
-    --accent-dim: rgba(34,197,94,0.1);
-    --accent-dim2: rgba(34,197,94,0.04);
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
   }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;font-size:16px}
-  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;transition:background var(--transition),color var(--transition);overflow-x:hidden}
-  ::selection{background:var(--accent);color:#fff}
-
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2rem;backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);background:var(--nav-bg);border-bottom:1px solid var(--border);transition:background var(--transition)}
-  .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:62px}
-  .nav-logo{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:-0.02em;color:var(--text);text-decoration:none}
-  .nav-logo span{color:var(--accent)}
-  .nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
-  .nav-links a{font-size:0.875rem;font-weight:400;color:var(--text2);text-decoration:none;transition:color 0.2s;letter-spacing:0.01em}
-  .nav-links a:hover,.nav-links a.active{color:var(--accent)}
-  .nav-right{display:flex;align-items:center;gap:1rem}
-  .theme-btn{background:none;border:1px solid var(--border2);border-radius:50px;width:40px;height:40px;cursor:pointer;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-size:1rem}
-  .theme-btn:hover{border-color:var(--accent);color:var(--accent)}
-  .nav-cta{background:var(--accent);color:#fff;font-size:0.8rem;font-weight:500;padding:8px 18px;border-radius:50px;text-decoration:none;transition:all 0.2s;letter-spacing:0.01em}
-  .nav-cta:hover{background:var(--accent-light);transform:translateY(-1px)}
-  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-  .hamburger span{display:block;width:22px;height:2px;background:var(--text2);border-radius:2px;transition:all 0.3s}
-  .mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;background:var(--card);border-bottom:1px solid var(--border);padding:1.5rem 2rem;z-index:99;flex-direction:column;gap:1.2rem}
-  .mobile-menu a{color:var(--text2);text-decoration:none;font-size:1rem;transition:color 0.2s}
-  .mobile-menu a:hover{color:var(--accent)}
-
-  section{padding:6rem 2rem}
-  .container{max-width:1100px;margin:0 auto}
-  .section-label{font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
-  .section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;line-height:1.15;letter-spacing:-0.03em;color:var(--text);margin-bottom:1rem}
-  .section-sub{font-size:1.05rem;color:var(--text2);max-width:560px;line-height:1.7}
-
-  #hero{padding-top:10rem;padding-bottom:7rem;position:relative;overflow:hidden}
-  #hero::before{content:'';position:absolute;top:-120px;right:-180px;width:600px;height:600px;background:radial-gradient(circle,rgba(22,163,74,0.08) 0%,transparent 70%);pointer-events:none}
-  #hero::after{content:'';position:absolute;bottom:-80px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(22,163,74,0.05) 0%,transparent 70%);pointer-events:none}
-  .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center}
-  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-dim);border:1px solid rgba(22,163,74,0.2);color:var(--accent);font-size:0.78rem;font-weight:500;padding:6px 14px;border-radius:50px;margin-bottom:1.5rem;letter-spacing:0.02em}
-  .hero-badge::before{content:'';width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse-dot 2s ease-in-out infinite}
-  @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.85)}}
-  h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;line-height:1.05;letter-spacing:-0.04em;color:var(--text);margin-bottom:1.4rem}
-  h1 .line2{display:block;color:var(--accent)}
-  .hero-desc{font-size:1.1rem;color:var(--text2);max-width:520px;line-height:1.75;margin-bottom:2.2rem;font-weight:300}
-  .hero-actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
-  .btn-primary{background:var(--accent);color:#fff;padding:13px 28px;border-radius:50px;text-decoration:none;font-size:0.9rem;font-weight:500;transition:all 0.2s;letter-spacing:0.01em;display:inline-flex;align-items:center;gap:8px}
-  .btn-primary:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(22,163,74,0.3)}
-  .btn-outline{border:1px solid var(--border2);color:var(--text2);padding:13px 28px;border-radius:50px;text-decoration:none;font-size:0.9rem;font-weight:400;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px}
-  .btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
-  .hero-socials{display:flex;gap:1rem;margin-top:2rem}
-  .social-link{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--border2);color:var(--text3);text-decoration:none;transition:all 0.2s;font-size:1rem}
-  .social-link:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
-  .hero-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow-lg);min-width:220px;text-align:center;flex-shrink:0}
-  .avatar-ring{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#15803d);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;letter-spacing:-0.02em}
-  .hero-card-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:0.3rem;letter-spacing:-0.01em}
-  .hero-card-role{font-size:0.78rem;color:var(--text3);margin-bottom:1.2rem}
-  .hero-stats{display:flex;flex-direction:column;gap:0.6rem;margin-top:1rem}
-  .hero-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg2);border-radius:var(--radius-sm);font-size:0.78rem}
-  .hero-stat-label{color:var(--text3)}
-  .hero-stat-val{color:var(--accent);font-weight:600;font-size:0.82rem}
-
-  #about{background:var(--bg2)}
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3.5rem}
-  .about-text p{color:var(--text2);font-size:1.05rem;line-height:1.8;margin-bottom:1rem}
-  .about-location{display:flex;align-items:center;gap:8px;color:var(--text3);font-size:0.875rem;margin-top:1.4rem}
-  .about-location svg{color:var(--accent)}
-  .skills-group{margin-bottom:1.8rem}
-  .skills-group-title{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:0.8rem}
-  .skills-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
-  .skill-tag{background:var(--accent-dim);color:var(--accent);font-size:0.78rem;font-weight:500;padding:5px 12px;border-radius:50px;letter-spacing:0.01em;border:1px solid rgba(22,163,74,0.15);transition:all 0.2s;cursor:default}
-  .skill-tag:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
-  .skill-tag.neutral{background:var(--bg3);color:var(--text2);border-color:var(--border);font-weight:400}
-  .skill-tag.neutral:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
-
-  #experience{background:var(--bg)}
-  .timeline{margin-top:3.5rem;position:relative}
-  .timeline::before{content:'';position:absolute;left:24px;top:8px;bottom:8px;width:1px;background:var(--border2)}
-  .tl-item{display:grid;grid-template-columns:50px 1fr;gap:0;margin-bottom:3rem;position:relative}
-  .tl-dot{width:50px;display:flex;justify-content:center;padding-top:4px;flex-shrink:0}
-  .tl-dot-inner{width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--accent);flex-shrink:0;margin-top:5px}
-  .tl-content{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem 1.8rem;box-shadow:var(--shadow);transition:transform 0.3s,box-shadow 0.3s}
-  .tl-content:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-  .tl-company{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text);letter-spacing:-0.01em}
-  .tl-role{font-size:0.875rem;color:var(--accent);font-weight:500;margin:4px 0 3px}
-  .tl-meta{font-size:0.78rem;color:var(--text3);display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:0.8rem}
-  .tl-badge{background:var(--accent-dim);color:var(--accent);font-size:0.7rem;font-weight:600;padding:3px 10px;border-radius:50px;letter-spacing:0.04em}
-  .tl-achievements{display:flex;flex-direction:column;gap:0.5rem}
-  .tl-ach{display:flex;align-items:flex-start;gap:10px;font-size:0.875rem;color:var(--text2);line-height:1.6}
-  .tl-ach::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px}
-
-  #projects{background:var(--bg2)}
-  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;margin-top:3.5rem}
-  .project-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;box-shadow:var(--shadow);transition:all 0.3s;position:relative;overflow:hidden}
-  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-light));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
-  .project-card:hover::before{transform:scaleX(1)}
-  .project-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--border2)}
-  .project-icon{width:44px;height:44px;background:var(--accent-dim);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.3rem}
-  .project-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:0.5rem;letter-spacing:-0.01em}
-  .project-desc{font-size:0.875rem;color:var(--text2);line-height:1.65;margin-bottom:1rem}
-  .project-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
-  .project-tag{background:var(--bg2);color:var(--text3);font-size:0.7rem;padding:3px 9px;border-radius:50px;border:1px solid var(--border);font-weight:400}
-  [data-theme="dark"] .project-tag{background:var(--bg3)}
-
-  #education{background:var(--bg)}
-  .edu-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.8rem 2rem;box-shadow:var(--shadow);max-width:700px;margin-top:3rem;display:flex;gap:1.5rem;align-items:flex-start;transition:all 0.3s}
-  .edu-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-  .edu-icon{width:52px;height:52px;background:var(--accent-dim);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.5rem}
-  .edu-degree{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text);margin-bottom:0.3rem;letter-spacing:-0.01em}
-  .edu-college{font-size:0.875rem;color:var(--text2);margin-bottom:0.5rem}
-  .edu-meta{display:flex;gap:1rem;flex-wrap:wrap}
-  .edu-chip{background:var(--bg2);color:var(--text3);font-size:0.75rem;padding:4px 10px;border-radius:50px;border:1px solid var(--border)}
-
-  #contact{background:var(--bg2)}
-  .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3.5rem}
-  .contact-links{display:flex;flex-direction:column;gap:1rem;margin-top:1rem}
-  .contact-link{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text);transition:all 0.25s;box-shadow:var(--shadow)}
-  .contact-link:hover{border-color:var(--accent);transform:translateX(4px);box-shadow:var(--shadow-lg)}
-  .contact-link-icon{width:40px;height:40px;background:var(--accent-dim);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;transition:background 0.2s;color:var(--accent)}
-  .contact-link:hover .contact-link-icon{background:var(--accent);color:#fff}
-  .contact-link-text strong{display:block;font-size:0.875rem;font-weight:500;color:var(--text);margin-bottom:1px}
-  .contact-link-text span{font-size:0.78rem;color:var(--text3)}
-  .contact-cta-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow)}
-  .contact-cta-box h3{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:0.7rem;letter-spacing:-0.02em;color:var(--text)}
-  .contact-cta-box p{color:var(--text2);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.7}
-
-  footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 2rem}
-  .footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-  .footer-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);letter-spacing:-0.01em}
-  .footer-copy{font-size:0.78rem;color:var(--text3)}
-
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s cubic-bezier(0.4,0,0.2,1),transform 0.7s cubic-bezier(0.4,0,0.2,1)}
-  .reveal.visible{opacity:1;transform:translateY(0)}
-  .reveal-delay-1{transition-delay:0.1s}
-  .reveal-delay-2{transition-delay:0.2s}
-  .reveal-delay-3{transition-delay:0.3s}
-  .reveal-delay-4{transition-delay:0.4s}
-
-  @media(max-width:900px){
-    .hero-inner{grid-template-columns:1fr;gap:2.5rem}
-    .hero-card{display:flex;gap:1.5rem;text-align:left;align-items:center}
-    .avatar-ring{margin:0;flex-shrink:0}
-    .hero-stats{flex-direction:row;flex-wrap:wrap}
-    .about-grid{grid-template-columns:1fr}
-    .contact-inner{grid-template-columns:1fr}
-    .timeline::before{left:20px}
-    .tl-dot{width:42px}
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity:.25;
+    pointer-events:none;
+    z-index:0;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 75%);
   }
-  @media(max-width:680px){
-    nav{padding:0 1.25rem}
-    section{padding:4.5rem 1.25rem}
-    .nav-links,.nav-cta{display:none}
-    .hamburger{display:flex}
-    .mobile-menu.open{display:flex}
-    #hero{padding-top:8rem;padding-bottom:5rem}
-    .footer-inner{flex-direction:column;text-align:center}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  ::selection{background:var(--green); color:#04140e;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--cyan); outline-offset:3px; border-radius:4px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
   }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(9,13,22,.82);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav-inner{
+    max-width:1120px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--mono);
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-size:14px; font-weight:600; letter-spacing:.02em;}
+  .brand .dot{width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-dim); animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .nav-links{display:flex; gap:28px; font-size:12.5px; color:var(--text-dim);}
+  .nav-links a{transition:color .15s;}
+  .nav-links a:hover{color:var(--green);}
+  .nav-cta{
+    font-size:12px; padding:8px 14px; border:1px solid var(--border); border-radius:6px;
+    color:var(--text); transition:.15s;
+  }
+  .nav-cta:hover{border-color:var(--green); color:var(--green);}
+  .nav-mobile-hide{display:flex;}
+  @media (max-width:720px){ .nav-mobile-hide{display:none;} }
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:88px 0 64px; position:relative;}
+  .status-bar{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--green); background:var(--green-dim); border:1px solid #14382b;
+    padding:7px 14px; border-radius:100px; margin-bottom:28px;
+  }
+  .status-bar .dot{width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulse 2.4s infinite;}
+  h1.name{
+    font-family:var(--mono); font-weight:800; letter-spacing:-.01em;
+    font-size:clamp(34px, 5.4vw, 64px); line-height:1.05; color:#fff;
+  }
+  .role-line{
+    margin-top:14px; font-size:clamp(16px,2.2vw,21px); color:var(--text-dim); font-weight:500;
+    display:flex; flex-wrap:wrap; gap:10px 12px; align-items:center;
+  }
+  .role-line .sep{color:var(--text-faint);}
+  .role-line .hl{color:var(--cyan);}
+
+  .terminal{
+    margin-top:38px; max-width:720px;
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    overflow:hidden; box-shadow:0 20px 60px -20px rgba(0,0,0,.6);
+  }
+  .terminal-head{
+    display:flex; align-items:center; gap:8px; padding:10px 14px;
+    background:var(--panel-2); border-bottom:1px solid var(--border);
+  }
+  .terminal-head span{width:10px; height:10px; border-radius:50%; display:inline-block;}
+  .terminal-head span:nth-child(1){background:#f87171;}
+  .terminal-head span:nth-child(2){background:#fbbf24;}
+  .terminal-head span:nth-child(3){background:#34d399;}
+  .terminal-head .path{margin-left:10px; font-family:var(--mono); font-size:11.5px; color:var(--text-faint);}
+  .terminal-body{padding:18px 20px; font-family:var(--mono); font-size:13px; min-height:130px;}
+  .terminal-body .line{color:var(--text-dim); margin-bottom:7px; opacity:0; animation:fadeUp .5s forwards;}
+  .terminal-body .line b{color:var(--green); font-weight:600;}
+  .terminal-body .line .tag{color:var(--cyan);}
+  .terminal-body .line .warn{color:var(--amber);}
+  .cursor{display:inline-block; width:7px; height:14px; background:var(--green); vertical-align:middle; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+
+  .hero-actions{display:flex; flex-wrap:wrap; gap:14px; margin-top:34px;}
+  .btn{
+    font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:.02em;
+    padding:13px 22px; border-radius:7px; display:inline-flex; align-items:center; gap:8px;
+    transition:.18s;
+  }
+  .btn-primary{background:var(--green); color:#04140e;}
+  .btn-primary:hover{background:#5eead4; transform:translateY(-1px);}
+  .btn-ghost{border:1px solid var(--border); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--cyan); color:var(--cyan); transform:translateY(-1px);}
+
+  .metrics{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    margin-top:56px; border:1px solid var(--border); border-radius:10px; overflow:hidden;
+    background:var(--border);
+  }
+  .metric{background:var(--panel); padding:22px 20px;}
+  .metric .num{font-family:var(--mono); font-size:26px; font-weight:700; color:#fff;}
+  .metric .num .u{color:var(--green); font-size:16px;}
+  .metric .lbl{margin-top:4px; font-size:11.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.06em;}
+  @media (max-width:720px){ .metrics{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:100px 0; position:relative;}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--text-faint); display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  }
+  .eyebrow::before{content:''; width:20px; height:1px; background:var(--border);}
+  h2.sec-title{font-family:var(--mono); font-size:clamp(24px,3.4vw,34px); color:#fff; font-weight:700; letter-spacing:-.01em;}
+  .sec-desc{margin-top:14px; color:var(--text-dim); max-width:560px; font-size:15.5px;}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; margin-top:44px; align-items:start;}
+  @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
+  .about-copy p{color:var(--text-dim); margin-bottom:16px; font-size:15.5px;}
+  .about-copy strong{color:var(--text); font-weight:600;}
+  .yaml-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:22px 24px;
+    font-family:var(--mono); font-size:13px; line-height:1.9;
+  }
+  .yaml-card .k{color:var(--cyan);}
+  .yaml-card .v{color:var(--text-dim);}
+  .yaml-card .s{color:var(--amber);}
+  .yaml-card .dash{color:var(--text-faint);}
+
+  /* ---------- STACK ---------- */
+  .stack-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:44px;}
+  @media (max-width:760px){ .stack-grid{grid-template-columns:1fr;} }
+  .stack-panel{background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:24px;}
+  .stack-panel .ph{
+    display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;
+  }
+  .stack-panel .ph h3{font-family:var(--mono); font-size:13.5px; color:#fff; letter-spacing:.02em;}
+  .stack-panel .ph .count{font-family:var(--mono); font-size:11px; color:var(--text-faint);}
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--mono); font-size:12px; padding:7px 11px; border-radius:6px;
+    background:var(--panel-2); border:1px solid var(--border); color:var(--text-dim);
+    transition:.15s;
+  }
+  .chip:hover{border-color:var(--green); color:var(--green);}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-list{display:flex; flex-direction:column; gap:18px; margin-top:44px;}
+  .proj-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    padding:28px 28px; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:start;
+    transition:border-color .2s, transform .2s;
+  }
+  .proj-card:hover{border-color:#2a3650; transform:translateY(-2px);}
+  @media (max-width:760px){ .proj-card{grid-template-columns:1fr;} }
+  .proj-top{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+  .proj-badge{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+    padding:4px 9px; border-radius:100px; display:inline-flex; align-items:center; gap:6px;
+  }
+  .proj-badge.deployed{background:var(--green-dim); color:var(--green); border:1px solid #14382b;}
+  .proj-badge .dt{width:5px; height:5px; border-radius:50%; background:currentColor;}
+  .proj-num{font-family:var(--mono); font-size:11px; color:var(--text-faint);}
+  .proj-card h3{font-size:19px; color:#fff; font-weight:700; margin-bottom:8px;}
+  .proj-card p{color:var(--text-dim); font-size:14.5px; max-width:560px;}
+  .proj-tech{display:flex; flex-wrap:wrap; gap:7px; margin-top:16px;}
+  .proj-tech span{font-family:var(--mono); font-size:11px; color:var(--text-faint); background:var(--panel-2); padding:4px 9px; border-radius:5px; border:1px solid var(--border-soft);}
+  .proj-links{display:flex; flex-direction:column; gap:10px; min-width:130px;}
+  .proj-links a{font-family:var(--mono); font-size:12px; display:flex; align-items:center; gap:6px; color:var(--text-dim); transition:.15s;}
+  .proj-links a:hover{color:var(--cyan);}
+
+  /* ---------- TIMELINE (log style) ---------- */
+  .log{margin-top:44px; border-left:1px solid var(--border); padding-left:0;}
+  .log-entry{position:relative; padding:0 0 34px 32px; border-left:1px solid var(--border); margin-left:6px;}
+  .log-entry:last-child{border-color:transparent; padding-bottom:0;}
+  .log-entry::before{
+    content:''; position:absolute; left:-5px; top:2px; width:9px; height:9px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--green);
+  }
+  .log-meta{font-family:var(--mono); font-size:11.5px; color:var(--text-faint); display:flex; gap:10px; align-items:center; margin-bottom:6px;}
+  .log-meta .lvl{color:var(--green); font-weight:600;}
+  .log-entry h4{font-size:16px; color:#fff; font-weight:600; margin-bottom:5px;}
+  .log-entry .org{color:var(--cyan); font-size:13px; font-family:var(--mono); margin-bottom:8px; display:block;}
+  .log-entry p{color:var(--text-dim); font-size:14.5px; max-width:600px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-panel{
+    margin-top:44px; background:var(--panel); border:1px solid var(--border); border-radius:14px;
+    padding:52px 44px; text-align:center; position:relative; overflow:hidden;
+  }
+  .contact-panel::before{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 50% 0%, rgba(52,211,153,.08), transparent 60%);
+  }
+  .contact-panel > *{position:relative; z-index:1;}
+  .prompt{
+    font-family:var(--mono); font-size:14px; color:var(--green); background:var(--green-dim);
+    display:inline-block; padding:9px 16px; border-radius:7px; margin-bottom:22px; border:1px solid #14382b;
+  }
+  .contact-panel h2{font-size:clamp(24px,3.6vw,36px); color:#fff; font-family:var(--mono); font-weight:700;}
+  .contact-panel p{color:var(--text-dim); margin:16px auto 30px; max-width:460px; font-size:15px;}
+  .contact-links{display:flex; flex-wrap:wrap; justify-content:center; gap:14px;}
+
+  footer{
+    border-top:1px solid var(--border-soft); padding:32px 0; margin-top:20px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-family:var(--mono); font-size:11.5px; color:var(--text-faint);
+  }
+  footer a{color:var(--text-faint); transition:.15s;}
+  footer a:hover{color:var(--green);}
 </style>
 </head>
 <body>
 
-<nav id="navbar">
+<nav>
   <div class="nav-inner">
-    <a href="#hero" class="nav-logo">MK<span>.</span></a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="nav-right">
-      <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">
-        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
-      <a href="mailto:Deepakmani339@gmail.com" class="nav-cta">Hire Me</a>
-      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="brand"><span class="dot"></span> manideepak<span style="color:var(--text-faint)">@</span>sre</div>
+    <div class="nav-links nav-mobile-hide">
+      <a href="#about">about</a>
+      <a href="#stack">stack</a>
+      <a href="#projects">projects</a>
+      <a href="#experience">experience</a>
+      <a href="#contact">contact</a>
     </div>
+    <a class="nav-cta" href="mailto:manideepak.sre@gmail.com">say hello</a>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about" onclick="closeMobile()">About</a>
-  <a href="#experience" onclick="closeMobile()">Experience</a>
-  <a href="#projects" onclick="closeMobile()">Projects</a>
-  <a href="#education" onclick="closeMobile()">Education</a>
-  <a href="#contact" onclick="closeMobile()">Contact</a>
-</div>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-badge reveal">Available for opportunities</div>
-      <h1 class="reveal reveal-delay-1">Kovvuru<br><span class="line2">ManiDeepak</span></h1>
-      <p class="hero-desc reveal reveal-delay-2">Site Reliability Engineer focused on cloud infrastructure security, cost-efficiency, and reliability through automation and monitoring improvements at scale.</p>
-      <div class="hero-actions reveal reveal-delay-3">
-        <a href="#experience" class="btn-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-          View Experience
-        </a>
-        <a href="#contact" class="btn-outline">Get In Touch</a>
-      </div>
-      <div class="hero-socials reveal reveal-delay-4">
-        <a href="https://www.linkedin.com/in/manideepak-kovvuru/" target="_blank" class="social-link" title="LinkedIn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a href="https://github.com/deepakmani339-lgtm" target="_blank" class="social-link" title="GitHub">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-        </a>
-        <a href="mailto:Deepakmani339@gmail.com" class="social-link" title="Email">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </a>
-      </div>
+<header class="hero">
+  <div class="wrap">
+    <div class="status-bar"><span class="dot"></span> system status — operational</div>
+    <h1 class="name">Kovvuru ManiDeepak</h1>
+    <div class="role-line">
+      <span>Site Reliability Engineer</span><span class="sep">/</span>
+      <span class="hl">DevOps</span><span class="sep">/</span>
+      <span class="hl">Cloud Engineer</span>
     </div>
-    <div class="hero-card reveal reveal-delay-2">
-      <div class="avatar-ring">MD</div>
-      <div class="hero-card-name">ManiDeepak Kovvuru</div>
-      <div class="hero-card-role">Site Reliability Engineer</div>
-      <div class="hero-stats">
-        <div class="hero-stat"><span class="hero-stat-label">Experience</span><span class="hero-stat-val">3.8 Years</span></div>
-        <div class="hero-stat"><span class="hero-stat-label">Uptime</span><span class="hero-stat-val">99.9%+</span></div>
-        <div class="hero-stat"><span class="hero-stat-label">Location</span><span class="hero-stat-val">Hyderabad</span></div>
-        <div class="hero-stat"><span class="hero-stat-label">Focus</span><span class="hero-stat-val">SRE / Cloud</span></div>
+
+    <div class="terminal">
+      <div class="terminal-head">
+        <span></span><span></span><span></span>
+        <span class="path">~/manideepak — bash — 80x12</span>
       </div>
+      <div class="terminal-body" id="term"></div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">view deployments →</a>
+      <a class="btn btn-ghost" href="mailto:manideepak.sre@gmail.com">manideepak.sre@gmail.com</a>
+    </div>
+
+    <div class="metrics reveal">
+      <div class="metric"><div class="num">99.9<span class="u">%</span></div><div class="lbl">Target uptime SLA</div></div>
+      <div class="metric"><div class="num">MTTR</div><div class="lbl">Focused on fast resolution</div></div>
+      <div class="metric"><div class="num">20<span class="u">+</span></div><div class="lbl">Tools in stack</div></div>
+      <div class="metric"><div class="num">24<span class="u">/7</span></div><div class="lbl">Monitoring mindset</div></div>
     </div>
   </div>
-</section>
+</header>
 
-<!-- ABOUT -->
 <section id="about">
-  <div class="container">
-    <div class="section-label reveal">About</div>
-    <h2 class="section-title reveal">Building reliable systems<br>at scale</h2>
+  <div class="wrap">
+    <div class="eyebrow">01 · about</div>
+    <h2 class="sec-title">The engineer behind the uptime.</h2>
     <div class="about-grid">
-      <div class="about-text reveal">
-        <p>As a Site Reliability Operations Engineer at Zeta, I focus on optimising cloud infrastructure security, cost-efficiency, and reliability through automation and monitoring improvements.</p>
-        <p>I bring strong operational ownership to every system I touch — whether that's leading incident command during high-severity outages, engineering SLO-aligned services, or building automation that reduces manual toil.</p>
-        <p>With a continuous improvement mindset and a bias toward automation, I thrive in fast-paced, cloud-native environments where reliability and performance matter.</p>
-        <div class="about-location">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Hyderabad, India
+      <div class="about-copy reveal">
+        <p>I keep production systems <strong>up, fast, and predictable</strong>. My work sits at the intersection of infrastructure automation, observability, and incident response — the parts of engineering that don't get noticed when they're working, and get noticed immediately when they're not.</p>
+        <p>Day to day, that means provisioning cloud infrastructure as code, building monitoring that catches problems before users do, and running root cause analysis that turns a bad night into a permanent fix. I'm comfortable being the person paged at 3 AM, and I'm just as comfortable writing the postmortem that makes sure it doesn't happen twice.</p>
+        <p>Based in <strong>India</strong>, currently sharpening skills in <strong>DevSecOps, AI-assisted operations, and large-scale system design</strong> — the next layer of reliability engineering.</p>
+      </div>
+      <div class="yaml-card reveal">
+        <div><span class="s">#</span> <span class="v">engineer.yaml</span></div>
+        <div><span class="k">name</span>: <span class="v">Kovvuru ManiDeepak</span></div>
+        <div><span class="k">role</span>: <span class="v">SRE / DevOps / Cloud</span></div>
+        <div><span class="k">location</span>: <span class="v">India</span></div>
+        <div><span class="k">phone</span>: <span class="v">+91 93472&nbsp;47104</span></div>
+        <div><span class="k">focus</span>:</div>
+        <div><span class="dash">&nbsp;&nbsp;-</span> <span class="v">Cloud infrastructure (AWS)</span></div>
+        <div><span class="dash">&nbsp;&nbsp;-</span> <span class="v">CI/CD &amp; GitOps automation</span></div>
+        <div><span class="dash">&nbsp;&nbsp;-</span> <span class="v">Observability (ELK, Grafana)</span></div>
+        <div><span class="dash">&nbsp;&nbsp;-</span> <span class="v">Incident mgmt &amp; RCA</span></div>
+        <div><span class="k">status</span>: <span class="v" style="color:var(--green)">open_to_work</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack" style="background:var(--bg-soft); border-top:1px solid var(--border-soft); border-bottom:1px solid var(--border-soft);">
+  <div class="wrap">
+    <div class="eyebrow">02 · stack</div>
+    <h2 class="sec-title">Tools I run production on.</h2>
+    <p class="sec-desc">A working stack spanning cloud provisioning, deployment automation, and the observability tooling that keeps it all honest — including the current wave of platform-engineering &amp; GitOps tools.</p>
+
+    <div class="stack-grid">
+      <div class="stack-panel reveal">
+        <div class="ph"><h3>☁ cloud &amp; infrastructure</h3><span class="count">08</span></div>
+        <div class="chips">
+          <span class="chip">AWS</span><span class="chip">VPC</span><span class="chip">Terraform</span>
+          <span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Helm</span>
+          <span class="chip">Linux</span><span class="chip">Ansible</span>
         </div>
       </div>
-      <div class="reveal reveal-delay-1">
-        <div class="skills-group">
-          <div class="skills-group-title">Cloud &amp; Infrastructure</div>
-          <div class="skills-tags">
-            <span class="skill-tag">Kubernetes</span>
-            <span class="skill-tag">Docker</span>
-            <span class="skill-tag">AWS / GCP</span>
-            <span class="skill-tag">CI/CD Pipelines</span>
-            <span class="skill-tag">Linux</span>
-          </div>
+      <div class="stack-panel reveal">
+        <div class="ph"><h3>🚀 CI/CD &amp; GitOps</h3><span class="count">06</span></div>
+        <div class="chips">
+          <span class="chip">GitHub Actions</span><span class="chip">ArgoCD</span><span class="chip">Jenkins</span>
+          <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Vault</span>
         </div>
-        <div class="skills-group">
-          <div class="skills-group-title">Observability &amp; Monitoring</div>
-          <div class="skills-tags">
-            <span class="skill-tag">Grafana</span>
-            <span class="skill-tag">Prometheus</span>
-            <span class="skill-tag">Kibana</span>
-            <span class="skill-tag">SLOs / SLAs / SLIs</span>
-            <span class="skill-tag">Alerting</span>
-          </div>
+      </div>
+      <div class="stack-panel reveal">
+        <div class="ph"><h3>📈 observability</h3><span class="count">07</span></div>
+        <div class="chips">
+          <span class="chip">Grafana</span><span class="chip">Kibana</span><span class="chip">ELK Stack</span>
+          <span class="chip">Prometheus</span><span class="chip">OpenTelemetry</span><span class="chip">Postman</span>
+          <span class="chip">MySQL</span>
         </div>
-        <div class="skills-group">
-          <div class="skills-group-title">Operations &amp; Reliability</div>
-          <div class="skills-tags">
-            <span class="skill-tag neutral">Incident Command (L1)</span>
-            <span class="skill-tag neutral">RCA</span>
-            <span class="skill-tag neutral">Runbooks</span>
-            <span class="skill-tag neutral">On-call</span>
-            <span class="skill-tag neutral">Automation</span>
-          </div>
-        </div>
-        <div class="skills-group">
-          <div class="skills-group-title">Networking &amp; Tooling</div>
-          <div class="skills-tags">
-            <span class="skill-tag neutral">DNS / WAF / LB</span>
-            <span class="skill-tag neutral">kubectl</span>
-            <span class="skill-tag neutral">Bash Scripting</span>
-            <span class="skill-tag neutral">curl / netstat</span>
-            <span class="skill-tag neutral">SDLC</span>
-          </div>
+      </div>
+      <div class="stack-panel reveal">
+        <div class="ph"><h3>🛠 practice &amp; workflow</h3><span class="count">06</span></div>
+        <div class="chips">
+          <span class="chip">Incident Mgmt</span><span class="chip">RCA</span><span class="chip">Troubleshooting</span>
+          <span class="chip">Jira</span><span class="chip">VS Code</span><span class="chip">Python</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="section-label reveal">Experience</div>
-    <h2 class="section-title reveal">Where I've worked</h2>
-    <div class="timeline">
-      <div class="tl-item reveal">
-        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-content">
-          <div class="tl-company">Zeta Pvt. Ltd</div>
-          <div class="tl-role">Site Reliability Operational Engineer II</div>
-          <div class="tl-meta"><span>Hyderabad</span><span>·</span><span>Oct 2022 – Present</span><span class="tl-badge">Current</span></div>
-          <div class="tl-achievements">
-            <div class="tl-ach">Maintained 99.9%+ service uptime by engineering systems to strictly adhere to defined SLOs and SLIs across mission-critical cloud services.</div>
-            <div class="tl-ach">Acted as Incident Commander (L1) during high-severity production incidents — leading triage, mitigation, communication, and escalation to L2/L3 teams.</div>
-            <div class="tl-ach">Investigated and resolved Kubernetes issues including pod crashes, deployment failures, resource bottlenecks, and service disruptions using kubectl and monitoring tools.</div>
-            <div class="tl-ach">Designed and maintained CI/CD pipelines enabling safe, repeatable, and automated deployments with minimal downtime.</div>
-            <div class="tl-ach">Automated repetitive operational tasks significantly reducing manual effort, error rates, and incident response times.</div>
-            <div class="tl-ach">Proactively monitored system health using Grafana and Prometheus — identifying and resolving issues before customer impact.</div>
-            <div class="tl-ach">Performed comprehensive RCA for production incidents and implemented permanent corrective actions to prevent recurrence.</div>
-          </div>
-        </div>
-      </div>
-      <div class="tl-item reveal reveal-delay-1">
-        <div class="tl-dot"><div class="tl-dot-inner" style="background:var(--text3);box-shadow:0 0 0 2px var(--text3)"></div></div>
-        <div class="tl-content">
-          <div class="tl-company">Wipro Pvt. Ltd</div>
-          <div class="tl-role">Application Support Engineer</div>
-          <div class="tl-meta"><span>Hyderabad</span><span>·</span><span>Feb 2022 – Sep 2022</span></div>
-          <div class="tl-achievements">
-            <div class="tl-ach">Analyzed system logs in Grafana and Kibana to triage defects by severity, risk, and frequency — acting as the primary contact for L2 data requests from L1 support.</div>
-            <div class="tl-ach">Monitored performance metrics including CPU utilization, memory usage, and disk space; escalated and resolved complex issues collaboratively with engineering.</div>
-            <div class="tl-ach">Documented actionable bugs for engineering resolution and implemented lean principles to enhance workflow efficiency and reduce operational waste.</div>
-            <div class="tl-ach">Collaborated with development and QA teams to manage and execute code migrations across environments, ensuring smooth and stable releases.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
 <section id="projects">
-  <div class="container">
-    <div class="section-label reveal">Projects</div>
-    <h2 class="section-title reveal">SRE initiatives &amp;<br>technical work</h2>
-    <p class="section-sub reveal reveal-delay-1">Key engineering projects and operational improvements from production environments.</p>
-    <div class="projects-grid">
-      <div class="project-card reveal">
-        <div class="project-icon">🔍</div>
-        <div class="project-name">Observability Stack Improvement</div>
-        <div class="project-desc">Enhanced monitoring coverage using Grafana and Prometheus dashboards. Improved alert quality and reduced MTTD by identifying gaps in runbooks and alert configurations.</div>
-        <div class="project-tags"><span class="project-tag">Grafana</span><span class="project-tag">Prometheus</span><span class="project-tag">Alerting</span><span class="project-tag">SLO/SLI</span></div>
-      </div>
-      <div class="project-card reveal reveal-delay-1">
-        <div class="project-icon">⚙️</div>
-        <div class="project-name">CI/CD Pipeline Design &amp; Maintenance</div>
-        <div class="project-desc">Designed and maintained CI/CD pipelines enabling safe, repeatable automated deployments. Supported staging and demo environments ensuring high availability during customer-facing events.</div>
-        <div class="project-tags"><span class="project-tag">CI/CD</span><span class="project-tag">Automation</span><span class="project-tag">Deployment</span><span class="project-tag">DevOps</span></div>
-      </div>
-      <div class="project-card reveal reveal-delay-2">
-        <div class="project-icon">☸️</div>
-        <div class="project-name">Kubernetes Operations &amp; Reliability</div>
-        <div class="project-desc">Resolved complex Kubernetes issues including pod failures, volume errors, service disruptions, and resource bottlenecks. Standardised kubectl-based diagnostics and incident workflows.</div>
-        <div class="project-tags"><span class="project-tag">Kubernetes</span><span class="project-tag">kubectl</span><span class="project-tag">Containers</span><span class="project-tag">Docker</span></div>
-      </div>
-      <div class="project-card reveal">
-        <div class="project-icon">🚨</div>
-        <div class="project-name">Incident Management Framework</div>
-        <div class="project-desc">Led high-severity incident response as Incident Commander (L1). Improved runbooks, defined escalation paths, and built post-incident RCA documentation reducing recurrence rates.</div>
-        <div class="project-tags"><span class="project-tag">Incident Mgmt</span><span class="project-tag">RCA</span><span class="project-tag">Runbooks</span><span class="project-tag">On-call</span></div>
-      </div>
-      <div class="project-card reveal reveal-delay-1">
-        <div class="project-icon">🤖</div>
-        <div class="project-name">Operational Automation</div>
-        <div class="project-desc">Automated repetitive operational tasks using scripting to reduce manual effort, error rates, and incident response time. Identified automation opportunities via incident post-mortems.</div>
-        <div class="project-tags"><span class="project-tag">Bash</span><span class="project-tag">Scripting</span><span class="project-tag">Automation</span><span class="project-tag">Linux</span></div>
-      </div>
-      <div class="project-card reveal reveal-delay-2">
-        <div class="project-icon">🌐</div>
-        <div class="project-name">Network Diagnostics &amp; Troubleshooting</div>
-        <div class="project-desc">Diagnosed and resolved complex networking issues involving DNS, firewalls, WAF, proxies, and load balancers using tools like ping, curl, netstat, and traceroute.</div>
-        <div class="project-tags"><span class="project-tag">Networking</span><span class="project-tag">DNS</span><span class="project-tag">WAF</span><span class="project-tag">Load Balancers</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+  <div class="wrap">
+    <div class="eyebrow">03 · projects</div>
+    <h2 class="sec-title">Recent deployments.</h2>
+    <p class="sec-desc">Selected infrastructure and automation work — each shipped, monitored, and documented.</p>
 
-<!-- EDUCATION -->
-<section id="education">
-  <div class="container">
-    <div class="section-label reveal">Education</div>
-    <h2 class="section-title reveal">Academic background</h2>
-    <div class="edu-card reveal reveal-delay-1">
-      <div class="edu-icon">🎓</div>
-      <div>
-        <div class="edu-degree">Bachelor of Technology — Electrical &amp; Electronics Engineering</div>
-        <div class="edu-college">B.Tech · EEE</div>
-        <div class="edu-meta">
-          <span class="edu-chip">Jul 2016 – Jun 2020</span>
-          <span class="edu-chip">India</span>
+    <div class="proj-list">
+
+      <div class="proj-card reveal">
+        <div>
+          <div class="proj-top">
+            <span class="proj-badge deployed"><span class="dt"></span>deployed</span>
+            <span class="proj-num">proj / 01</span>
+          </div>
+          <h3>Cloud Infrastructure Automation</h3>
+          <p>End-to-end AWS environment (VPC, EC2, RDS) provisioned entirely through Terraform, replacing manual console setup with reproducible, version-controlled infrastructure. Modular state management enables safe, repeatable deploys across environments.</p>
+          <div class="proj-tech">
+            <span>Terraform</span><span>AWS</span><span>VPC</span><span>Linux</span>
+          </div>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/deepakmani339-lgtm" target="_blank" rel="noopener">↗ source</a>
+          <a href="https://portfolio-bmcb.vercel.app/" target="_blank" rel="noopener">↗ live demo</a>
         </div>
       </div>
+
+      <div class="proj-card reveal">
+        <div>
+          <div class="proj-top">
+            <span class="proj-badge deployed"><span class="dt"></span>deployed</span>
+            <span class="proj-num">proj / 02</span>
+          </div>
+          <h3>Centralized Observability Dashboard</h3>
+          <p>Unified logging and metrics pipeline built on the ELK stack with Grafana dashboards on top, giving on-call engineers a single pane of glass. Alert thresholds tuned to cut noisy pages while catching real incidents earlier.</p>
+          <div class="proj-tech">
+            <span>ELK Stack</span><span>Kibana</span><span>Grafana</span><span>Docker</span>
+          </div>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/deepakmani339-lgtm" target="_blank" rel="noopener">↗ source</a>
+          <a href="https://portfolio-bmcb.vercel.app/" target="_blank" rel="noopener">↗ live demo</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div>
+          <div class="proj-top">
+            <span class="proj-badge deployed"><span class="dt"></span>deployed</span>
+            <span class="proj-num">proj / 03</span>
+          </div>
+          <h3>Containerized CI/CD Pipeline</h3>
+          <p>GitOps-style deployment pipeline for containerized microservices on Kubernetes — automated builds, health-checked rollouts, and instant rollback on failed release checks. Built to make shipping boring, in the best way.</p>
+          <div class="proj-tech">
+            <span>Kubernetes</span><span>Docker</span><span>GitHub Actions</span><span>Python</span>
+          </div>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/deepakmani339-lgtm" target="_blank" rel="noopener">↗ source</a>
+          <a href="https://portfolio-bmcb.vercel.app/" target="_blank" rel="noopener">↗ live demo</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<section id="experience" style="background:var(--bg-soft); border-top:1px solid var(--border-soft); border-bottom:1px solid var(--border-soft);">
+  <div class="wrap">
+    <div class="eyebrow">04 · currently learning</div>
+    <h2 class="sec-title">Next layer of the stack.</h2>
+    <p class="sec-desc">Actively building depth here — treat this as work in progress, not a finished badge.</p>
+    <div class="chips reveal" style="margin-top:30px;">
+      <span class="chip">AI for Operations</span>
+      <span class="chip">System Design</span>
+      <span class="chip">Docker (advanced)</span>
+      <span class="chip">AWS Solutions Architecture</span>
+      <span class="chip">DevSecOps</span>
+    </div>
+
+    <div class="log" style="margin-top:64px;">
+      <div class="log-entry reveal">
+        <div class="log-meta"><span class="lvl">[INFO]</span> ongoing</div>
+        <h4>Deepening cloud &amp; reliability engineering</h4>
+        <span class="org">Self-directed · hands-on labs &amp; certifications</span>
+        <p>Building end-to-end projects across AWS, Kubernetes, and Terraform to simulate real production environments — provisioning, breaking, and fixing infrastructure on purpose.</p>
+      </div>
+      <div class="log-entry reveal">
+        <div class="log-meta"><span class="lvl">[INFO]</span> foundation</div>
+        <h4>Core SRE &amp; DevOps practices</h4>
+        <span class="org">Linux · Docker · Git · Monitoring</span>
+        <p>Built fluency in Linux administration, containerization, version control, and log-based troubleshooting — the fundamentals every incident response depends on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="contact">
-  <div class="container">
-    <div class="section-label reveal">Contact</div>
-    <h2 class="section-title reveal">Let's work together</h2>
-    <div class="contact-inner">
-      <div class="reveal">
-        <p style="color:var(--text2);font-size:1rem;line-height:1.8;margin-bottom:1rem">I'm open to SRE, DevOps, and cloud infrastructure roles. Feel free to reach out — I'm always happy to connect!</p>
-        <div class="contact-links">
-          <a href="mailto:Deepakmani339@gmail.com" class="contact-link">
-            <div class="contact-link-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            <div class="contact-link-text"><strong>Email</strong><span>Deepakmani339@gmail.com</span></div>
-          </a>
-          <a href="https://www.linkedin.com/in/manideepak-kovvuru/" target="_blank" class="contact-link">
-            <div class="contact-link-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            </div>
-            <div class="contact-link-text"><strong>LinkedIn</strong><span>manideepak-kovvuru</span></div>
-          </a>
-          <a href="https://github.com/deepakmani339-lgtm" target="_blank" class="contact-link">
-            <div class="contact-link-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            </div>
-            <div class="contact-link-text"><strong>GitHub</strong><span>deepakmani339-lgtm</span></div>
-          </a>
-        </div>
-      </div>
-      <div class="contact-cta-box reveal reveal-delay-1">
-        <h3>Open to new roles</h3>
-        <p>Looking for SRE, Platform Engineering, or DevOps opportunities where I can drive reliability, automation, and cloud-native excellence.</p>
-        <a href="mailto:Deepakmani339@gmail.com" class="btn-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          Send a message
-        </a>
+  <div class="wrap">
+    <div class="eyebrow">05 · contact</div>
+    <div class="contact-panel reveal">
+      <div class="prompt">$ contact --engineer=manideepak --status=available</div>
+      <h2>Let's keep something running.</h2>
+      <p>Open to SRE, DevOps, and Cloud Engineering roles. If you need someone who treats uptime like a personal responsibility, let's talk.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:manideepak.sre@gmail.com">✉ manideepak.sre@gmail.com</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/manideepak-kovvuru" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/deepakmani339-lgtm" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-ghost" href="tel:9347247104">Call</a>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-inner">
-    <span class="footer-name">Kovvuru ManiDeepak</span>
-    <span class="footer-copy">© 2025 · Site Reliability Engineer · Hyderabad, India</span>
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; width:100%;">
+    <span>© 2026 Kovvuru ManiDeepak — built to stay up.</span>
+    <span><a href="mailto:manideepak.sre@gmail.com">manideepak.sre@gmail.com</a> · India</span>
   </div>
 </footer>
 
 <script>
-const html = document.documentElement;
-const themeBtn = document.getElementById('themeToggle');
-const sun = document.getElementById('sunIcon');
-const moon = document.getElementById('moonIcon');
-let dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-function applyTheme(){html.setAttribute('data-theme',dark?'dark':'');sun.style.display=dark?'block':'none';moon.style.display=dark?'none':'block';}
-applyTheme();
-themeBtn.addEventListener('click',()=>{dark=!dark;applyTheme();});
+  // Terminal boot sequence
+  const lines = [
+    '<b>$</b> whoami',
+    'Kovvuru ManiDeepak — Site Reliability Engineer',
+    '<b>$</b> systemctl status career',
+    '<span class="tag">●</span> active <b>(running)</b> since infra automation began',
+    '<b>$</b> cat skills.log | grep "core"',
+    'AWS · Kubernetes · Terraform · Docker · ELK · Grafana',
+    '<b>$</b> tail -f incidents.log',
+    '<span class="warn">[RESOLVED]</span> all known issues — 0 open incidents'
+  ];
+  const term = document.getElementById('term');
+  lines.forEach((l, i) => {
+    const div = document.createElement('div');
+    div.className = 'line';
+    div.style.animationDelay = (i * 0.42) + 's';
+    div.innerHTML = l;
+    term.appendChild(div);
+  });
+  const cur = document.createElement('span');
+  cur.className = 'cursor';
+  cur.style.opacity = '0';
+  cur.style.animation = 'blink 1s step-end infinite';
+  setTimeout(() => { cur.style.opacity = '1'; }, lines.length * 420);
+  term.appendChild(cur);
 
-const hamburger=document.getElementById('hamburger');
-const mobileMenu=document.getElementById('mobileMenu');
-hamburger.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
-function closeMobile(){mobileMenu.classList.remove('open');}
-
-const reveals=document.querySelectorAll('.reveal');
-const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-reveals.forEach(r=>obs.observe(r));
-
-const sections=document.querySelectorAll('section[id]');
-const navLinks=document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll',()=>{
-  let current='';
-  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.id;});
-  navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+current);});
-},{passive:true});
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
 </script>
+
 </body>
 </html>
