@@ -1,142 +1,542 @@
-# LinkedIn Profile Optimization — Kovvuru ManiDeepak
+Portfolio
 
----
 
-## 1. Headline (Keyword-Rich)
 
-LinkedIn indexes your headline heavily in recruiter search — it needs your target titles + core tools, not a job description.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kovvuru ManiDeepak — Site Reliability Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#090d16;
+    --bg-soft:#0d1220;
+    --panel:#111827;
+    --panel-2:#0f1626;
+    --border:#1e293b;
+    --border-soft:#182033;
+    --text:#e6e9f0;
+    --text-dim:#8b93a7;
+    --text-faint:#586178;
+    --green:#34d399;
+    --green-dim:#0f2e24;
+    --amber:#fbbf24;
+    --amber-dim:#332608;
+    --red:#f87171;
+    --red-dim:#2e1414;
+    --cyan:#38bdf8;
+    --cyan-dim:#0c2436;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --sans:'Inter', -apple-system, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity:.25;
+    pointer-events:none;
+    z-index:0;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 75%);
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  ::selection{background:var(--green); color:#04140e;}
 
-**Primary (recommended):**
-> Site Reliability Engineer | DevOps | Kubernetes • AWS • Terraform | CI/CD & Observability | Building 99.9%+ Uptime Systems
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--cyan); outline-offset:3px; border-radius:4px;}
 
-**Alternative A (keyword-dense for boolean search):**
-> SRE / DevOps Engineer | AWS | Kubernetes | Terraform | Jenkins | ELK • Grafana | CI/CD Automation | Incident Management & RCA
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
 
-**Alternative B (value-prop forward):**
-> I keep production up. SRE | Kubernetes & AWS Infra | CI/CD Automation | Observability | Open to DevOps/SRE Roles
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(9,13,22,.82);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav-inner{
+    max-width:1120px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--mono);
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-size:14px; font-weight:600; letter-spacing:.02em;}
+  .brand .dot{width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-dim); animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .nav-links{display:flex; gap:28px; font-size:12.5px; color:var(--text-dim);}
+  .nav-links a{transition:color .15s;}
+  .nav-links a:hover{color:var(--green);}
+  .nav-cta{
+    font-size:12px; padding:8px 14px; border:1px solid var(--border); border-radius:6px;
+    color:var(--text); transition:.15s;
+  }
+  .nav-cta:hover{border-color:var(--green); color:var(--green);}
+  .nav-mobile-hide{display:flex;}
+  @media (max-width:720px){ .nav-mobile-hide{display:none;} }
 
-Pick one, but **do not leave it as your current job title alone** — recruiters search by skill/tool keywords, and a bare title like "Site Reliability Operations Engineer II" won't surface you for half the searches you're eligible for.
+  /* ---------- HERO ---------- */
+  header.hero{padding:88px 0 64px; position:relative;}
+  .status-bar{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--green); background:var(--green-dim); border:1px solid #14382b;
+    padding:7px 14px; border-radius:100px; margin-bottom:28px;
+  }
+  .status-bar .dot{width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulse 2.4s infinite;}
+  h1.name{
+    font-family:var(--mono); font-weight:800; letter-spacing:-.01em;
+    font-size:clamp(34px, 5.4vw, 64px); line-height:1.05; color:#fff;
+  }
+  .role-line{
+    margin-top:14px; font-size:clamp(16px,2.2vw,21px); color:var(--text-dim); font-weight:500;
+    display:flex; flex-wrap:wrap; gap:10px 12px; align-items:center;
+  }
+  .role-line .sep{color:var(--text-faint);}
+  .role-line .hl{color:var(--cyan);}
 
----
+  .terminal{
+    margin-top:38px; max-width:720px;
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    overflow:hidden; box-shadow:0 20px 60px -20px rgba(0,0,0,.6);
+  }
+  .terminal-head{
+    display:flex; align-items:center; gap:8px; padding:10px 14px;
+    background:var(--panel-2); border-bottom:1px solid var(--border);
+  }
+  .terminal-head span{width:10px; height:10px; border-radius:50%; display:inline-block;}
+  .terminal-head span:nth-child(1){background:#f87171;}
+  .terminal-head span:nth-child(2){background:#fbbf24;}
+  .terminal-head span:nth-child(3){background:#34d399;}
+  .terminal-head .path{margin-left:10px; font-family:var(--mono); font-size:11.5px; color:var(--text-faint);}
+  .terminal-body{padding:18px 20px; font-family:var(--mono); font-size:13px; min-height:130px;}
+  .terminal-body .line{color:var(--text-dim); margin-bottom:7px; opacity:0; animation:fadeUp .5s forwards;}
+  .terminal-body .line b{color:var(--green); font-weight:600;}
+  .terminal-body .line .tag{color:var(--cyan);}
+  .terminal-body .line .warn{color:var(--amber);}
+  .cursor{display:inline-block; width:7px; height:14px; background:var(--green); vertical-align:middle; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
 
-## 2. About / Summary Section (Rewritten)
+  .hero-actions{display:flex; flex-wrap:wrap; gap:14px; margin-top:34px;}
+  .btn{
+    font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:.02em;
+    padding:13px 22px; border-radius:7px; display:inline-flex; align-items:center; gap:8px;
+    transition:.18s;
+  }
+  .btn-primary{background:var(--green); color:#04140e;}
+  .btn-primary:hover{background:#5eead4; transform:translateY(-1px);}
+  .btn-ghost{border:1px solid var(--border); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--cyan); color:var(--cyan); transform:translateY(-1px);}
 
-First person, story-led, ends with a clear CTA. Paste as-is or lightly tweak the tone.
+  .metrics{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    margin-top:56px; border:1px solid var(--border); border-radius:10px; overflow:hidden;
+    background:var(--border);
+  }
+  .metric{background:var(--panel); padding:22px 20px;}
+  .metric .num{font-family:var(--mono); font-size:26px; font-weight:700; color:#fff;}
+  .metric .num .u{color:var(--green); font-size:16px;}
+  .metric .lbl{margin-top:4px; font-size:11.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.06em;}
+  @media (max-width:720px){ .metrics{grid-template-columns:repeat(2,1fr);} }
 
-> I keep production systems up, fast, and predictable — and I've built my career around the parts of engineering that go unnoticed when they're working and get noticed immediately when they're not.
->
-> As a Site Reliability Engineer at Zeta, I sit at the intersection of infrastructure automation, observability, and incident response. On any given week, that means tuning Kubernetes clusters for cost and performance, provisioning AWS infrastructure as code with Terraform, building Grafana dashboards that catch problems before customers do, and writing the RCA that turns a bad night into a permanent fix. I've cut resource wastage by 30%, improved application stability by 20%, and helped sustain 99.9%+ uptime across mission-critical production systems — not as one-off wins, but as the result of treating reliability as a discipline, not a fire drill.
->
-> I'm equally comfortable being the person paged at 3 AM and the person who makes sure that page doesn't happen again. My toolkit spans Kubernetes, Docker, Terraform, Jenkins, GitHub Actions, ArgoCD, ELK, Grafana, Prometheus, and Ansible — but the constant across all of it is a bias toward automation over manual toil, and measurement over guesswork.
->
-> I'm currently deepening my skills in DevSecOps, AI-assisted operations, and large-scale system design — the next layer of reliability engineering — and actively exploring SRE, DevOps, and Cloud Engineering roles where I can own infrastructure end-to-end.
->
-> **If you're hiring for a reliability-obsessed engineer who can own infra from Terraform to postmortem, let's talk** — reach me at manideepak.sre@gmail.com or drop a message here on LinkedIn.
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:100px 0; position:relative;}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--text-faint); display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  }
+  .eyebrow::before{content:''; width:20px; height:1px; background:var(--border);}
+  h2.sec-title{font-family:var(--mono); font-size:clamp(24px,3.4vw,34px); color:#fff; font-weight:700; letter-spacing:-.01em;}
+  .sec-desc{margin-top:14px; color:var(--text-dim); max-width:560px; font-size:15.5px;}
 
----
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
 
-## 3. Experience Section (Rewritten Bullets)
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; margin-top:44px; align-items:start;}
+  @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
+  .about-copy p{color:var(--text-dim); margin-bottom:16px; font-size:15.5px;}
+  .about-copy strong{color:var(--text); font-weight:600;}
+  .yaml-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:22px 24px;
+    font-family:var(--mono); font-size:13px; line-height:1.9;
+  }
+  .yaml-card .k{color:var(--cyan);}
+  .yaml-card .v{color:var(--text-dim);}
+  .yaml-card .s{color:var(--amber);}
+  .yaml-card .dash{color:var(--text-faint);}
 
-### Site Reliability Operations Engineer II — Zeta
-*Oct 2024 – Present · Hyderabad*
+  /* ---------- STACK ---------- */
+  .stack-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:44px;}
+  @media (max-width:760px){ .stack-grid{grid-template-columns:1fr;} }
+  .stack-panel{background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:24px;}
+  .stack-panel .ph{
+    display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;
+  }
+  .stack-panel .ph h3{font-family:var(--mono); font-size:13.5px; color:#fff; letter-spacing:.02em;}
+  .stack-panel .ph .count{font-family:var(--mono); font-size:11px; color:var(--text-faint);}
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--mono); font-size:12px; padding:7px 11px; border-radius:6px;
+    background:var(--panel-2); border:1px solid var(--border); color:var(--text-dim);
+    transition:.15s;
+  }
+  .chip:hover{border-color:var(--green); color:var(--green);}
 
-- Reduced Kubernetes resource wastage by 30% and improved application performance/stability by 20% by re-architecting HPA policies, affinity rules, priority classes, and JVM metric exposure using a custom metrics-collection script.
-- Deployed and managed new Kubernetes clusters end-to-end using zero-downtime rolling deployments, cutting service transition time by 30% and improving resource utilization by 35% through fine-tuned resource requests/limits and node affinity rules.
-- Built 4 production Grafana dashboards backed by Prometheus to monitor JVM memory, request latency, and error rates for Spring Boot services — improving incident response efficiency by 50%.
-- Sustained 99.9%+ uptime on mission-critical production systems by engineering automated monitoring, alerting, and recovery workflows mapped to defined SLOs and SLIs.
-- Owned end-to-end incident response as on-call engineer, diagnosing failures across Kubernetes, AWS, and CI/CD pipelines, authoring internal/external RCAs, and implementing preventive fixes that reduced recurring incidents.
-- Resolved high-severity Kubernetes issues — CrashLoopBackOff errors, pod crashes, volume mount failures, and deployment bottlenecks — using kubectl and real-time monitoring tooling.
-- Provisioned and version-controlled AWS infrastructure (EC2, VPC, IAM, S3, ECR) as code using Terraform, reducing environment provisioning time and eliminating configuration drift across dev, staging, and production.
-- Refactored Helm charts to centralize alerting and health checks across all clusters, increasing visibility into cluster health and accelerating issue resolution.
-- Delivered 24/7 on-call support against defined SLAs, managing availability and latency incidents while coordinating cross-functionally with engineering, QA, and customer support teams.
+  /* ---------- PROJECTS ---------- */
+  .proj-list{display:flex; flex-direction:column; gap:18px; margin-top:44px;}
+  .proj-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    padding:28px 28px; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:start;
+    transition:border-color .2s, transform .2s;
+  }
+  .proj-card:hover{border-color:#2a3650; transform:translateY(-2px);}
+  @media (max-width:760px){ .proj-card{grid-template-columns:1fr;} }
+  .proj-top{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+  .proj-badge{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+    padding:4px 9px; border-radius:100px; display:inline-flex; align-items:center; gap:6px;
+  }
+  .proj-badge.deployed{background:var(--green-dim); color:var(--green); border:1px solid #14382b;}
+  .proj-badge .dt{width:5px; height:5px; border-radius:50%; background:currentColor;}
+  .proj-num{font-family:var(--mono); font-size:11px; color:var(--text-faint);}
+  .proj-card h3{font-size:19px; color:#fff; font-weight:700; margin-bottom:8px;}
+  .proj-card p{color:var(--text-dim); font-size:14.5px; max-width:560px;}
+  .proj-tech{display:flex; flex-wrap:wrap; gap:7px; margin-top:16px;}
+  .proj-tech span{font-family:var(--mono); font-size:11px; color:var(--text-faint); background:var(--panel-2); padding:4px 9px; border-radius:5px; border:1px solid var(--border-soft);}
+  .proj-links{display:flex; flex-direction:column; gap:10px; min-width:130px;}
+  .proj-links a{font-family:var(--mono); font-size:12px; display:flex; align-items:center; gap:6px; color:var(--text-dim); transition:.15s;}
+  .proj-links a:hover{color:var(--cyan);}
 
-### Implementation Engineer II — Zeta
-*Oct 2022 – Sep 2024 · Bengaluru, Karnataka, India*
+  /* ---------- TIMELINE (log style) ---------- */
+  .log{margin-top:44px; border-left:1px solid var(--border); padding-left:0;}
+  .log-entry{position:relative; padding:0 0 34px 32px; border-left:1px solid var(--border); margin-left:6px;}
+  .log-entry:last-child{border-color:transparent; padding-bottom:0;}
+  .log-entry::before{
+    content:''; position:absolute; left:-5px; top:2px; width:9px; height:9px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--green);
+  }
+  .log-meta{font-family:var(--mono); font-size:11.5px; color:var(--text-faint); display:flex; gap:10px; align-items:center; margin-bottom:6px;}
+  .log-meta .lvl{color:var(--green); font-weight:600;}
+  .log-entry h4{font-size:16px; color:#fff; font-weight:600; margin-bottom:5px;}
+  .log-entry .org{color:var(--cyan); font-size:13px; font-family:var(--mono); margin-bottom:8px; display:block;}
+  .log-entry p{color:var(--text-dim); font-size:14.5px; max-width:600px;}
 
-- Configured and maintained payment/credit-card products against cross-functional requirements, ensuring reliable functionality across client environments.
-- Diagnosed and resolved complex technical issues, applying credit card lifecycle expertise to reduce escalation time and improve first-contact resolution.
-- Identified and escalated product defects and enhancement requests, partnering with product and engineering teams to prioritize fixes.
-- Provided 24/7 on-call support across rotating shifts, maintaining SLA compliance for high-priority client issues.
-- Applied Python, JavaScript, and Bash scripting to troubleshoot and automate recurring technical checks, improving turnaround time on support tickets.
-- Queried and validated data using SQL and tested APIs via Postman to isolate root causes of production issues.
+  /* ---------- CONTACT ---------- */
+  .contact-panel{
+    margin-top:44px; background:var(--panel); border:1px solid var(--border); border-radius:14px;
+    padding:52px 44px; text-align:center; position:relative; overflow:hidden;
+  }
+  .contact-panel::before{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 50% 0%, rgba(52,211,153,.08), transparent 60%);
+  }
+  .contact-panel > *{position:relative; z-index:1;}
+  .prompt{
+    font-family:var(--mono); font-size:14px; color:var(--green); background:var(--green-dim);
+    display:inline-block; padding:9px 16px; border-radius:7px; margin-bottom:22px; border:1px solid #14382b;
+  }
+  .contact-panel h2{font-size:clamp(24px,3.6vw,36px); color:#fff; font-family:var(--mono); font-weight:700;}
+  .contact-panel p{color:var(--text-dim); margin:16px auto 30px; max-width:460px; font-size:15px;}
+  .contact-links{display:flex; flex-wrap:wrap; justify-content:center; gap:14px;}
 
-> 💡 **Tip:** Add 1-2 metrics to the Implementation Engineer role if you can recall them (e.g., "% reduction in ticket resolution time," "# of clients supported," "SLA compliance rate"). Recruiters weight quantified impact heavily even in support-adjacent roles.
+  footer{
+    border-top:1px solid var(--border-soft); padding:32px 0; margin-top:20px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-family:var(--mono); font-size:11.5px; color:var(--text-faint);
+  }
+  footer a{color:var(--text-faint); transition:.15s;}
+  footer a:hover{color:var(--green);}
+</style>
+</head>
+<body>
 
----
+<nav>
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span> manideepak<span style="color:var(--text-faint)">@</span>sre</div>
+    <div class="nav-links nav-mobile-hide">
+      <a href="#about">about</a>
+      <a href="#stack">stack</a>
+      <a href="#projects">projects</a>
+      <a href="#experience">experience</a>
+      <a href="#contact">contact</a>
+    </div>
+    <a class="nav-cta" href="mailto:manideepak.sre@gmail.com">say hello</a>
+  </div>
+</nav>
 
-## 4. Skills Section — Top 15 to Add (in priority order)
+<header class="hero">
+  <div class="wrap">
+    <div class="status-bar"><span class="dot"></span> system status — operational</div>
+    <h1 class="name">Kovvuru ManiDeepak</h1>
+    <div class="role-line">
+      <span>Site Reliability Engineer</span><span class="sep">/</span>
+      <span class="hl">DevOps</span><span class="sep">/</span>
+      <span class="hl">Cloud Engineer</span>
+    </div>
 
-Based on your actual stack (resume + portfolio) and what recruiters filter by for SRE/DevOps roles in 2026:
+    <div class="terminal">
+      <div class="terminal-head">
+        <span></span><span></span><span></span>
+        <span class="path">~/manideepak — bash — 80x12</span>
+      </div>
+      <div class="terminal-body" id="term"></div>
+    </div>
 
-1. **Kubernetes**
-2. **Amazon Web Services (AWS)**
-3. **Terraform**
-4. **Site Reliability Engineering (SRE)**
-5. **CI/CD**
-6. **Jenkins**
-7. **Docker**
-8. **Grafana**
-9. **Prometheus**
-10. **ELK Stack (Elasticsearch, Logstash, Kibana)**
-11. **Ansible**
-12. **Incident Management**
-13. **Linux System Administration**
-14. **Python** (scripting)
-15. **GitOps / ArgoCD**
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">view deployments →</a>
+      <a class="btn btn-ghost" href="mailto:manideepak.sre@gmail.com">manideepak.sre@gmail.com</a>
+    </div>
 
-**Reorder your existing Top Skills** (currently Kubernetes, SSH, Microservices) — SSH is too generic to rank you for anything; swap it for AWS or SRE. LinkedIn only lets recruiters see your **top 3 pinned skills** prominently, so pin: **Kubernetes, AWS, Terraform**.
+    <div class="metrics reveal">
+      <div class="metric"><div class="num">99.9<span class="u">%</span></div><div class="lbl">Target uptime SLA</div></div>
+      <div class="metric"><div class="num">MTTR</div><div class="lbl">Focused on fast resolution</div></div>
+      <div class="metric"><div class="num">20<span class="u">+</span></div><div class="lbl">Tools in stack</div></div>
+      <div class="metric"><div class="num">24<span class="u">/7</span></div><div class="lbl">Monitoring mindset</div></div>
+    </div>
+  </div>
+</header>
 
----
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">01 · about</div>
+    <h2 class="sec-title">The engineer behind the uptime.</h2>
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <p>I keep production systems <strong>up, fast, and predictable</strong>. My work sits at the intersection of infrastructure automation, observability, and incident response — the parts of engineering that don't get noticed when they're working, and get noticed immediately when they're not.</p>
+        <p>Day to day, that means provisioning cloud infrastructure as code, building monitoring that catches problems before users do, and running root cause analysis that turns a bad night into a permanent fix. I'm comfortable being the person paged at 3 AM, and I'm just as comfortable writing the postmortem that makes sure it doesn't happen twice.</p>
+        <p>Based in <strong>India</strong>, currently sharpening skills in <strong>DevSecOps, AI-assisted operations, and large-scale system design</strong> — the next layer of reliability engineering.</p>
+      </div>
+      <div class="yaml-card reveal">
+        <div><span class="s">#</span> <span class="v">engineer.yaml</span></div>
+        <div><span class="k">name</span>: <span class="v">Kovvuru ManiDeepak</span></div>
+        <div><span class="k">role</span>: <span class="v">SRE / DevOps / Cloud</span></div>
+        <div><span class="k">location</span>: <span class="v">India</span></div>
+        <div><span class="k">phone</span>: <span class="v">+91 93472&nbsp;47104</span></div>
+        <div><span class="k">focus</span>:</div>
+        <div><span class="dash">&nbsp;&nbsp;-</span> <span class="v">Cloud infrastructure (AWS)</span></div>
+        <div><span class="dash">&nbsp;&nbsp;-</span> <span class="v">CI/CD &amp; GitOps automation</span></div>
+        <div><span class="dash">&nbsp;&nbsp;-</span> <span class="v">Observability (ELK, Grafana)</span></div>
+        <div><span class="dash">&nbsp;&nbsp;-</span> <span class="v">Incident mgmt &amp; RCA</span></div>
+        <div><span class="k">status</span>: <span class="v" style="color:var(--green)">open_to_work</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-## 5. Keywords & SEO — What's Missing
+<section id="stack" style="background:var(--bg-soft); border-top:1px solid var(--border-soft); border-bottom:1px solid var(--border-soft);">
+  <div class="wrap">
+    <div class="eyebrow">02 · stack</div>
+    <h2 class="sec-title">Tools I run production on.</h2>
+    <p class="sec-desc">A working stack spanning cloud provisioning, deployment automation, and the observability tooling that keeps it all honest — including the current wave of platform-engineering &amp; GitOps tools.</p>
 
-Your profile currently under-indexes on several high-search-volume terms recruiters use. Weave these naturally into your headline, About, and experience bullets (you're already using some — the goal is repetition across sections, since LinkedIn's search algorithm weights keyword frequency and placement):
+    <div class="stack-grid">
+      <div class="stack-panel reveal">
+        <div class="ph"><h3>☁ cloud &amp; infrastructure</h3><span class="count">08</span></div>
+        <div class="chips">
+          <span class="chip">AWS</span><span class="chip">VPC</span><span class="chip">Terraform</span>
+          <span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Helm</span>
+          <span class="chip">Linux</span><span class="chip">Ansible</span>
+        </div>
+      </div>
+      <div class="stack-panel reveal">
+        <div class="ph"><h3>🚀 CI/CD &amp; GitOps</h3><span class="count">06</span></div>
+        <div class="chips">
+          <span class="chip">GitHub Actions</span><span class="chip">ArgoCD</span><span class="chip">Jenkins</span>
+          <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Vault</span>
+        </div>
+      </div>
+      <div class="stack-panel reveal">
+        <div class="ph"><h3>📈 observability</h3><span class="count">07</span></div>
+        <div class="chips">
+          <span class="chip">Grafana</span><span class="chip">Kibana</span><span class="chip">ELK Stack</span>
+          <span class="chip">Prometheus</span><span class="chip">OpenTelemetry</span><span class="chip">Postman</span>
+          <span class="chip">MySQL</span>
+        </div>
+      </div>
+      <div class="stack-panel reveal">
+        <div class="ph"><h3>🛠 practice &amp; workflow</h3><span class="count">06</span></div>
+        <div class="chips">
+          <span class="chip">Incident Mgmt</span><span class="chip">RCA</span><span class="chip">Troubleshooting</span>
+          <span class="chip">Jira</span><span class="chip">VS Code</span><span class="chip">Python</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-| Missing keyword | Where to add it |
-|---|---|
-| **Infrastructure as Code (IaC)** | About section, Terraform bullet |
-| **Observability** | Headline, About |
-| **GitOps** | Skills, experience bullets |
-| **DevSecOps** | About (you mention "exploring" — also add as an interest/skill) |
-| **SLA / SLO / SLI** | Already used once — repeat in headline or About |
-| **Cloud Cost Optimization** | Add to Terraform/AWS bullet — you *did* do cost-efficiency work, make it explicit |
-| **Helm** | Skills section |
-| **ArgoCD / GitHub Actions** | Skills — you list these on your portfolio but not your resume/profile |
-| **Root Cause Analysis (RCA)** | Already used — also add as a standalone skill entry |
-| **Cross-functional Collaboration** | About or a soft-skill callout |
-| **AWS Solutions Architecture** | "Currently learning" — worth flagging in About as a growth area (signals ambition to recruiters) |
-| **Platform Engineering** | Increasingly searched term adjacent to SRE/DevOps — consider adding to headline alt |
+<section id="projects">
+  <div class="wrap">
+    <div class="eyebrow">03 · projects</div>
+    <h2 class="sec-title">Recent deployments.</h2>
+    <p class="sec-desc">Selected infrastructure and automation work — each shipped, monitored, and documented.</p>
 
----
+    <div class="proj-list">
 
-## 6. Profile Completeness — What You're Missing
+      <div class="proj-card reveal">
+        <div>
+          <div class="proj-top">
+            <span class="proj-badge deployed"><span class="dt"></span>deployed</span>
+            <span class="proj-num">proj / 01</span>
+          </div>
+          <h3>Cloud Infrastructure Automation</h3>
+          <p>End-to-end AWS environment (VPC, EC2, RDS) provisioned entirely through Terraform, replacing manual console setup with reproducible, version-controlled infrastructure. Modular state management enables safe, repeatable deploys across environments.</p>
+          <div class="proj-tech">
+            <span>Terraform</span><span>AWS</span><span>VPC</span><span>Linux</span>
+          </div>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/deepakmani339-lgtm" target="_blank" rel="noopener">↗ source</a>
+          <a href="https://portfolio-bmcb.vercel.app/" target="_blank" rel="noopener">↗ live demo</a>
+        </div>
+      </div>
 
-Checked against your PDF export and portfolio site:
+      <div class="proj-card reveal">
+        <div>
+          <div class="proj-top">
+            <span class="proj-badge deployed"><span class="dt"></span>deployed</span>
+            <span class="proj-num">proj / 02</span>
+          </div>
+          <h3>Centralized Observability Dashboard</h3>
+          <p>Unified logging and metrics pipeline built on the ELK stack with Grafana dashboards on top, giving on-call engineers a single pane of glass. Alert thresholds tuned to cut noisy pages while catching real incidents earlier.</p>
+          <div class="proj-tech">
+            <span>ELK Stack</span><span>Kibana</span><span>Grafana</span><span>Docker</span>
+          </div>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/deepakmani339-lgtm" target="_blank" rel="noopener">↗ source</a>
+          <a href="https://portfolio-bmcb.vercel.app/" target="_blank" rel="noopener">↗ live demo</a>
+        </div>
+      </div>
 
-- ❌ **Featured section** — You have a live portfolio site (portfolio-bmcb.vercel.app) with 3 solid projects (Terraform AWS automation, ELK/Grafana observability stack, K8s GitOps CI/CD pipeline). **None of this is on your LinkedIn.** This is your single biggest missed opportunity — pin your portfolio link and 1-2 project write-ups here.
-- ❌ **Projects section** — Same 3 projects should also live natively in LinkedIn's Projects section (not just Featured), since it's separately searchable.
-- ❌ **Recommendations** — You have zero visible recommendations. For SRE/DevOps roles, even 2-3 short recommendations from a manager or peer citing specific incidents you resolved carry real weight with recruiters.
-- ⚠️ **Certifications** — "Introducing Postman," "Intro to DevOps," "Docker for Absolute Beginners" are entry-level and slightly undercut a profile that's otherwise mid-level. Prioritize earning and adding: **AWS Certified Solutions Architect – Associate**, **Certified Kubernetes Administrator (CKA)**, or **HashiCorp Terraform Associate** — these are the three most recruiter-searched certs in your field.
-- ⚠️ **Custom LinkedIn URL** — Confirm yours is clean (linkedin.com/in/manideepakkovvuru — looks good, keep it).
-- ⚠️ **Banner image** — Default banner reduces perceived polish. A simple branded banner (even text-based, matching your portfolio's terminal aesthetic) helps profile-visit-to-message conversion.
-- ⚠️ **"Open to Work"** — Confirm this is set to visible to recruiters (not just your network) if you want inbound DMs.
-- ⚠️ **Activity/posting** — Recruiters check activity to gauge engagement. Even monthly posts (a war-story about an incident, a Terraform tip, a dashboard screenshot) meaningfully boost how often you surface in search and how credible you look on profile visits.
-- ✅ Education, contact info, and languages are complete.
+      <div class="proj-card reveal">
+        <div>
+          <div class="proj-top">
+            <span class="proj-badge deployed"><span class="dt"></span>deployed</span>
+            <span class="proj-num">proj / 03</span>
+          </div>
+          <h3>Containerized CI/CD Pipeline</h3>
+          <p>GitOps-style deployment pipeline for containerized microservices on Kubernetes — automated builds, health-checked rollouts, and instant rollback on failed release checks. Built to make shipping boring, in the best way.</p>
+          <div class="proj-tech">
+            <span>Kubernetes</span><span>Docker</span><span>GitHub Actions</span><span>Python</span>
+          </div>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/deepakmani339-lgtm" target="_blank" rel="noopener">↗ source</a>
+          <a href="https://portfolio-bmcb.vercel.app/" target="_blank" rel="noopener">↗ live demo</a>
+        </div>
+      </div>
 
----
+    </div>
+  </div>
+</section>
 
-## 7. Final Score & Priority Action List
+<section id="experience" style="background:var(--bg-soft); border-top:1px solid var(--border-soft); border-bottom:1px solid var(--border-soft);">
+  <div class="wrap">
+    <div class="eyebrow">04 · currently learning</div>
+    <h2 class="sec-title">Next layer of the stack.</h2>
+    <p class="sec-desc">Actively building depth here — treat this as work in progress, not a finished badge.</p>
+    <div class="chips reveal" style="margin-top:30px;">
+      <span class="chip">AI for Operations</span>
+      <span class="chip">System Design</span>
+      <span class="chip">Docker (advanced)</span>
+      <span class="chip">AWS Solutions Architecture</span>
+      <span class="chip">DevSecOps</span>
+    </div>
 
-### Current Profile Score: **5.5 / 10**
+    <div class="log" style="margin-top:64px;">
+      <div class="log-entry reveal">
+        <div class="log-meta"><span class="lvl">[INFO]</span> ongoing</div>
+        <h4>Deepening cloud &amp; reliability engineering</h4>
+        <span class="org">Self-directed · hands-on labs &amp; certifications</span>
+        <p>Building end-to-end projects across AWS, Kubernetes, and Terraform to simulate real production environments — provisioning, breaking, and fixing infrastructure on purpose.</p>
+      </div>
+      <div class="log-entry reveal">
+        <div class="log-meta"><span class="lvl">[INFO]</span> foundation</div>
+        <h4>Core SRE &amp; DevOps practices</h4>
+        <span class="org">Linux · Docker · Git · Monitoring</span>
+        <p>Built fluency in Linux administration, containerization, version control, and log-based troubleshooting — the fundamentals every incident response depends on.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-You have strong, quantified substance in your experience section — that's the hard part, and it's already done well. But the profile is under-optimized for **discovery** (headline/keywords/skills) and under-utilized for **proof** (portfolio, projects, recommendations aren't surfaced). Right now you'd pass a recruiter's read *if they already found you* — the problem is ranking high enough in search and Featured content to get found and get a DM in the first place.
+<section id="contact">
+  <div class="wrap">
+    <div class="eyebrow">05 · contact</div>
+    <div class="contact-panel reveal">
+      <div class="prompt">$ contact --engineer=manideepak --status=available</div>
+      <h2>Let's keep something running.</h2>
+      <p>Open to SRE, DevOps, and Cloud Engineering roles. If you need someone who treats uptime like a personal responsibility, let's talk.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:manideepak.sre@gmail.com">✉ manideepak.sre@gmail.com</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/manideepak-kovvuru" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/deepakmani339-lgtm" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-ghost" href="tel:9347247104">Call</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-### Top 5 Changes to Make TODAY:
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; width:100%;">
+    <span>© 2026 Kovvuru ManiDeepak — built to stay up.</span>
+    <span><a href="mailto:manideepak.sre@gmail.com">manideepak.sre@gmail.com</a> · India</span>
+  </div>
+</footer>
 
-1. **Rewrite your headline** using one of the options in Section 1 — this alone changes what searches you appear in.
-2. **Add your portfolio to the Featured section** with your 3 projects — right now your best proof of work is invisible on LinkedIn.
-3. **Overhaul your Skills section** — add the 15 skills in Section 4, reorder/pin Kubernetes, AWS, Terraform to the top 3.
-4. **Replace your About section** with the rewrite in Section 2 — first-person, quantified, ends with a CTA.
-5. **Request 2 recommendations this week** — one from your current manager/lead at Zeta, one from a peer who saw your on-call/incident work firsthand. Recommendations are the highest-trust signal on your profile and you currently have none.
+<script>
+  // Terminal boot sequence
+  const lines = [
+    '<b>$</b> whoami',
+    'Kovvuru ManiDeepak — Site Reliability Engineer',
+    '<b>$</b> systemctl status career',
+    '<span class="tag">●</span> active <b>(running)</b> since infra automation began',
+    '<b>$</b> cat skills.log | grep "core"',
+    'AWS · Kubernetes · Terraform · Docker · ELK · Grafana',
+    '<b>$</b> tail -f incidents.log',
+    '<span class="warn">[RESOLVED]</span> all known issues — 0 open incidents'
+  ];
+  const term = document.getElementById('term');
+  lines.forEach((l, i) => {
+    const div = document.createElement('div');
+    div.className = 'line';
+    div.style.animationDelay = (i * 0.42) + 's';
+    div.innerHTML = l;
+    term.appendChild(div);
+  });
+  const cur = document.createElement('span');
+  cur.className = 'cursor';
+  cur.style.opacity = '0';
+  cur.style.animation = 'blink 1s step-end infinite';
+  setTimeout(() => { cur.style.opacity = '1'; }, lines.length * 420);
+  term.appendChild(cur);
 
-Do these five and you move from a 5.5 to a realistic **8/10** — the remaining points (certifications, activity, banner) compound over the following month rather than today.
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
